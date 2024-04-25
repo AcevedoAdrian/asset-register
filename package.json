@@ -1,0 +1,20 @@
+{
+  "name": "asset-register",
+  "version": "0.0.1",
+  "description": "Office asset register",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node --env-file=.env . ",
+    "dev": "node --watch  --env-file=.env src/app.js ",
+    "devnodemon": "nodemon --watch src --exec node --env-file=.env src/app.js"
+  },
+  "author": "Acevedo Adrian",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "3.1.0"
+  },
+  "dependencies": {
+    "express": "4.19.2"
+  }
+}
