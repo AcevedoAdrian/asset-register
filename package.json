@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node --env-file=.env . ",
     "dev": "node --watch  --env-file=.env .",
-    "devnodemon": "nodemon --watch src --exec node --env-file=.env src/app.js"
+    "devnodemon": "nodemon --watch src --exec node --env-file=.env src/app.js",
+    "css": "postcss src/public/css/tailwind.css -o src/public/css/app.css --watch"
   },
   "author": "Acevedo Adrian",
   "license": "ISC",
@@ -16,10 +17,14 @@
     "nodemon": "3.1.0",
     "postcss": "8.4.38",
     "postcss-cli": "11.0.0",
+    "semistandard": "17.0.0",
     "tailwindcss": "3.4.3"
   },
   "dependencies": {
     "express": "4.19.2",
     "pug": "3.0.2"
+  },
+  "eslintConfig": {
+    "extends": "semistandard"
   }
 }

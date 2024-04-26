@@ -1,16 +1,31 @@
-div 
-  h2(class="") Login
-  if authenticated 
-    p Usuario Autenticado
-  else 
-  form(action="/login", method="POST")
-    div.form-group
-      label(for="email") Email
-      input#email.form-control(type="email", name="email", required)
-    div.form-group
-      label(for="password") Password
-      input#password.form-control(type="password", name="password", required)
-    button.btn.btn-primary(type="submit") Login
-  p Please enter your email and password to login.
-  p Don't have an account? 
-    a(href="/auth/register") Register here.
+extends ../layout/index
+block container
+  div 
+    h2(class="text-center text-3xl ") Login
+    if authenticated 
+      p Usuario Autenticado
+    else 
+    form(action="/login", method="POST")
+      div.form-group
+        label(for="email") Email
+        input(
+          id="email", 
+          class="form-control",
+          type="email", 
+          name="email", 
+          required
+        )
+      div.form-group
+        label(for="password") Password
+        input( 
+          id="password", 
+          class="form-control", 
+          type="password", 
+          name="password", 
+          required
+        )
+
+      button(class="btn btn-primary", type="submit") Login
+    p Please enter your email and password to login.
+    p Don't have an account? 
+      a(href="/auth/register") Register here.
