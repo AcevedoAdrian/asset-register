@@ -6,7 +6,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node --env-file=.env . ",
-    "dev": "node --watch  --env-file=.env src/app.js ",
+    "dev": "node --watch  --env-file=.env .",
     "devnodemon": "nodemon --watch src --exec node --env-file=.env src/app.js"
   },
   "author": "Acevedo Adrian",

@@ -1,16 +1,17 @@
 import express from "express";
 import config from "./config/config.js";
+import usersRouter from "./router/users.routes.js";
+
 // Create express app
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to express app" });
-} );
+//Routes
+app.use("/users", usersRouter);
 
-app.listen(config.port, () => {
-  console.log(`Server is listening on port ${config.port}`);
+app.listen(config.PORT, () => {
+  console.log(`Server is listening on port ${config.PORT}`);
 });
 
 
