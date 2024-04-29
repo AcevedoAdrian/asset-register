@@ -5,10 +5,16 @@ block container
     h1(class="text-4xl my-10 font-extrabold text-center") Registo 
       span(class="font-normal text-green-500") de Bienes
     h2(class="text-center text-2xl font-extrabold ")= namePage
+    if errors && errors.length > 0
+      div(class="max-w-md mx-auto my-10 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative") 
+        strong(class="font-bold") Error: 
+        ul
+          each error in errors
+            li= error.msg
 
     div(class="mt-8 mx-auto max-w-md")
       div(class="bg-white p-8 rounded-lg px-4 shadow-lg")
-        form(action="/register", method="POST" class="space-y-4")
+        form(action="/auth/registerUser", method="POST" class="space-y-4" noValidate)
           //- Nombre
           div(class="form-group")
             label(
@@ -20,6 +26,7 @@ block container
               placeholder="Ingresa tu nombre",
               type="text", 
               name="name", 
+              value= user ? user.name : '',
               required
             )
           //- Email
@@ -33,6 +40,7 @@ block container
                 placeholder="Ingresa tu email",
                 type="email", 
                 name="email", 
+                value = user ? user.email : '',
                 required
               )
           //- Password

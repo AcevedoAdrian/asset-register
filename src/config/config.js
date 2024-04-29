@@ -6,7 +6,7 @@ export default {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
-    dialect: 'mysql',
-    port: 3306,
+    dialect: process.env.DB_DIALECT,
+    port: process.env.DB_PORT
   }
-  
+};

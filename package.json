@@ -22,8 +22,10 @@
   },
   "dependencies": {
     "express": "4.19.2",
+    "express-validator": "7.0.1",
+    "mariadb": "3.3.0",
     "pug": "3.0.2",
-    "sequelize": "^6.37.3"
+    "sequelize": "6.37.3"
   },
   "eslintConfig": {
     "extends": "semistandard"
