@@ -1,5 +1,79 @@
 extends ../layout/index
 
 block container  
-  div
-    h2(class="text-center") Crear cuenta
+  div(class="my-10")
+    h1(class="text-4xl my-10 font-extrabold text-center") Registo 
+      span(class="font-normal text-green-500") de Bienes
+    h2(class="text-center text-2xl font-extrabold ")= namePage
+
+    div(class="mt-8 mx-auto max-w-md")
+      div(class="bg-white p-8 rounded-lg px-4 shadow-lg")
+        form(action="/register", method="POST" class="space-y-4")
+          //- Nombre
+          div(class="form-group")
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="name") Nombre
+            input(
+              id="name", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa tu nombre",
+              type="text", 
+              name="name", 
+              required
+            )
+          //- Email
+          div(class="form-group")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="email") Email de Registro 
+              input(
+                id="email", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                placeholder="Ingresa tu email",
+                type="email", 
+                name="email", 
+                required
+              )
+          //- Password
+          div(class="form-group")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="password") Password 
+              input(
+                id="password", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                placeholder="Ingresa tu contraseña",
+                type="password", 
+                name="password", 
+                required
+              )
+          //- Repeat Password
+          div(class="form-group")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="repeat_password") Repetir Password 
+              input(
+                id="repeat_password", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                placeholder="Ingresa tu contraseña",
+                type="password", 
+                name="repeat_password", 
+                required
+              )
+          div(class="flex items-center justify-between")
+            a(href="/auth/login", class="text-xs text-gray-500") Iniciar Sesión
+            a(href="/auth/forget-password", class="text-xs text-gray-500") Olvider mi contraseña
+            //- Remember me
+            //- div(class="flex items center")
+            //-   input(
+            //-     id="remember_me", 
+            //-     class="form-checkbox border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+            //-     type="checkbox", 
+            //-     name="remember_me"
+            //-   )
+            //-   label(
+            //-     class="text-sm text-gray-500 font-bold"
+            //-     for="remember_me") Recordarme 
+          //- Submit
+          input(type="submit", class="btn btn-primary w-full py-2 px-3 rounded-lg bg-green-600 hover:bg-green-500 text-white font-bold cursor-pointer ", value="Registrarte")
