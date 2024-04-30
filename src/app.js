@@ -1,8 +1,8 @@
 import express from 'express';
+import db from './config/db.js';
 import { publicPath } from './utils/utils.js';
 import config from './config/config.js';
 import usersRouter from './routes/users.routes.js';
-import db from './config/db.js';
 // Create express app
 const app = express();
 
@@ -18,7 +18,6 @@ try {
 // Static files
 app.use(express.static(publicPath));
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
