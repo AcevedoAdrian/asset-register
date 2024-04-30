@@ -1,4 +1,5 @@
 import { DataTypes } from 'sequelize';
+import bcrypt from 'bcrypt';
 import db from '../config/db.js';
 
 const User = db.define('Users', {
@@ -30,6 +31,11 @@ const User = db.define('Users', {
     allowNull: false,
     defaultValue: false
   },
+  role: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'user'
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
@@ -39,6 +45,13 @@ const User = db.define('Users', {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW
+  }
+}, {
+  hooks: {
+    beforeCreate: async function (user) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(user.password, salt);
+    }
   }
 });
 
