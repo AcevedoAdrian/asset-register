@@ -15,5 +15,7 @@ export default {
     port: process.env.EMAIL_PORT,
     user: process.env.EMAIL_USER,
     password: process.env.EMAIL_PASSWORD
-  }
+  },
+  JWT_SECRET: process.env.JWT_SECRET,
+  COOKIE_SECRET: process.env.COOKIE_SECRET
 };

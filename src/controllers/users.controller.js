@@ -1,6 +1,6 @@
 import User from '../models/User.js';
 import { check, validationResult } from 'express-validator';
-import { generateToken } from '../helpers/tokens.js';
+import { jwtToken, generateToken } from '../helpers/tokens.js';
 import { emailRegister, emailForgetPassword } from '../helpers/email.js';
 import { hashPassword } from '../utils/utils.js';
 
@@ -62,6 +62,7 @@ const authenticateUser = async (req, res) => {
 
   // Verify the password
   const validPassword = await user.comparePassword(password);
+  console.log(validPassword);
   if (!validPassword) {
     return res.status(400).render('auth/login',
       {
@@ -74,7 +75,12 @@ const authenticateUser = async (req, res) => {
       }
     );
   }
-  // Verify the user is confirmed
+  // Implement jwt
+  const token = jwtToken({
+    id: user.id,
+    name: user.name,
+    email: user.email
+  });
 };
 
 const formRegister = async (req, res) => {
