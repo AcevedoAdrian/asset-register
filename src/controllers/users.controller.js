@@ -81,6 +81,13 @@ const authenticateUser = async (req, res) => {
     name: user.name,
     email: user.email
   });
+  // Save the token in the cookie
+  res.cookie('_token', token, {
+    httpOnly: true,
+    secure: false, // Pasar a true en produccion para use https
+    sameSite: false, // Pasar a true en produccion para proteger contra CSRF
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }).redirect('/home');
 };
 
 const formRegister = async (req, res) => {

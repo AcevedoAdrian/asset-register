@@ -3,6 +3,7 @@ import db from './config/db.js';
 import { publicPath } from './utils/utils.js';
 import config from './config/config.js';
 import usersRouter from './routes/users.routes.js';
+import { cookie } from 'express-validator';
 // Create express app
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.static(publicPath));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookie(config.COOKIE_SECRET));
 
 // Enable PUG
 app.set('view engine', 'pug');
