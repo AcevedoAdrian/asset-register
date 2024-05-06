@@ -6,9 +6,6 @@ const homeController = (req, res) => {
   });
 };
 
-const createAssetController = (req, res) => { 
-  
-};
 export {
   homeController
 };

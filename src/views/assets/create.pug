@@ -1,1 +1,98 @@
-  
+extends ../layout/index
+
+block container  
+  div(class="my-10")
+    h1(class="text-4xl my-10 font-extrabold text-center") Registo 
+      span(class="font-normal text-green-500") de Bienes
+    h2(class="text-center text-2xl font-extrabold ")= namePage
+
+    div(class="bg-wite shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
+      form(
+        action="/assets" 
+        method="POST"
+        class="space-y-8"
+        )
+        div(class="space-y-8")
+          h3(class="text-lg leading-6 font-medium text-gray-900") Datos del Bien
+          p(class="text-gray-600") Asegurate de llenar todos los campos
+
+          //- Number de Inventory 
+          div(class="form-group")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="inventory") Numero de Serie
+              input(
+                id="inventory", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                placeholder="Ingresa el numero de inventario: ej. 1900355225",
+                type="number", 
+                name="inventory", 
+                required
+              )
+          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+            //- Type de Asset
+            div(class="form-group md:w-1/2")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="type-asset") Tipo de Bien
+              select(
+                id="type-asset", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="type-asset"
+                )
+                  option(value="") - Selecciona el tipo de bien -
+                  option(value="1") Equipo de Computo 
+                  option(value="2") Mobiliario
+            //- Status
+            div(class="form-group md:w-1/2")
+                label(
+                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                  for="status") Numero de Serie
+                select(
+                  id="status", 
+                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                  name="status", 
+                  required
+                )
+                  option(value="") - Selecciona el estado del bien -
+                  option(value="1") Activo
+                  option(value="0") Inactivo
+            //- Area
+            div(class="form-group md:w-1/2")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="area") Area
+              select(
+                id="area", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="area"
+                )
+                  option(value="") - Selecciona el area -
+                  option(value="1") Equipo de Computo 
+                  option(value="2") Mobiliario
+          //- Serial number 
+          div(class="form-group")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="serial") Numero de Serie
+              input(
+                id="serial", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                placeholder="Ingresa el numero de serie: ej. 40002514511",
+                type="number", 
+                name="serial", 
+                required
+              )              
+
+          //- Description
+          div(class="form-group")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="description") Descripcion
+              textarea(
+                id="description", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                placeholder="Ingresa la descripcion del bien",
+                name="description", 
+                required
+              )
