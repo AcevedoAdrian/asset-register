@@ -34,11 +34,11 @@ block container
             div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="type-asset") Tipo de Bien
+                for="typeAsset") Tipo de Bien
               select(
-                id="type-asset", 
+                id="typeAsset", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                name="type-asset"
+                name="typeAsset"
                 )
                   option(value="") - Selecciona el tipo de bien -
                   option(value="1") Equipo de Computo 
@@ -47,7 +47,7 @@ block container
             div(class="form-group md:w-1/2")
                 label(
                   class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                  for="status") Numero de Serie
+                  for="status") Estado
                 select(
                   id="status", 
                   class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -55,14 +55,14 @@ block container
                   required
                 )
                   option(value="") - Selecciona el estado del bien -
-                  option(value="1") Activo
-                  option(value="0") Inactivo
+                  option(value="available") Activo
+                  option(value="unavailable") Inactivo
             //- Area
-            div(class="form-group md:w-1/2")
-              label(
+          div(class="form-group md:w-1/2")
+            label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
                 for="area") Area
-              select(
+            select(
                 id="area", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
                 name="area"

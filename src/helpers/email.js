@@ -53,7 +53,7 @@ const emailForgetPassword = async (data) => {
       
     `
   });
-
+  console.log('Message sent: %s', info);
   console.log('Message sent: %s', info.messageId);
 };
 
