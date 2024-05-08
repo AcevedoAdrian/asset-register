@@ -8,7 +8,8 @@
     "start": "node --env-file=.env . ",
     "dev": "node --watch  --env-file=.env .",
     "devnodemon": "nodemon --watch src --exec node --env-file=.env src/app.js",
-    "css": "postcss src/public/css/tailwind.css -o src/public/css/app.css --watch"
+    "css": "postcss src/public/css/tailwind.css -o src/public/css/app.css --watch",
+    "db:imported": "node --env-file=.env ./src/seed/seeder.js -i "
   },
   "author": "Acevedo Adrian",
   "license": "ISC",

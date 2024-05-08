@@ -9,6 +9,7 @@ const db = new Sequelize(
     host: config.DB.host,
     dialect: config.DB.dialect,
     port: config.DB.port,
+    operatorAliases: false,
     // Configuración de la base de datos
     define:
     {
