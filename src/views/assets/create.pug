@@ -76,15 +76,15 @@ block container
             div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="edifice") Edificio
+                for="building") Edificio
               select(
-                id="edifice", 
+                id="building", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                name="edifice"
+                name="building"
                 )
                   option(value="") - Selecciona el Edificio -
-                  each edifice in edifices
-                    option(value=edifice.id)= edifice.name
+                  each building in buildings
+                    option(value=building.id)= building.name
           //- Serial number 
           div(class="form-group")
               label(

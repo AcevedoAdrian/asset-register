@@ -26,7 +26,7 @@ const Asset = db.define('Assets', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  Edifice: {
+  Building: {
     type: DataTypes.INTEGER,
     allowNull: false
   },

@@ -1,11 +1,11 @@
 import { exit, argv } from 'node:process';
 
 import Area from '../models/Area.js';
-import Edifice from '../models/Edifice.js';
+import Building from '../models/Building.js';
 import TypeAsset from '../models/TypeAsset.js';
 
 import area from './areas.js';
-import edifice from './edifices.js';
+import building from './buildings.js';
 import typeAsset from './typeassets.js';
 import db from '../config/db.js';
 
@@ -16,7 +16,7 @@ const importData = async () => {
 
     await Promise.all([
       Area.bulkCreate(area),
-      Edifice.bulkCreate(edifice),
+      Building.bulkCreate(building),
       TypeAsset.bulkCreate(typeAsset)
     ]);
     exit();
@@ -30,7 +30,7 @@ const deleteData = async () => {
   try {
     await Promise.all([
       Area.destroy({ where: {}, truncate: true }),
-      Edifice.destroy({ where: {}, truncate: true }),
+      Building.destroy({ where: {}, truncate: true }),
       TypeAsset.destroy({ where: {}, truncate: true })
     ]);
     // await db.sync({ force: true }); // Force sync to reset autoincrement

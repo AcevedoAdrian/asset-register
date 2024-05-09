@@ -1,4 +1,4 @@
-const edifices = [
+const buildings = [
   {
     name: 'José María Paz 170 '
   },
@@ -29,4 +29,4 @@ const edifices = [
 
 ];
 
-export default edifices;
+export default buildings;

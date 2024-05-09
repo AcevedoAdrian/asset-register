@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 
 import db from '../config/db.js';
 
-const Edifice = db.define('Edifices', {
+const Building = db.define('Buildings', {
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -18,4 +18,4 @@ const Edifice = db.define('Edifices', {
   }
 });
 
-export default Edifice;
+export default Building;

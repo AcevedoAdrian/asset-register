@@ -41,12 +41,12 @@ const emailForgetPassword = async (data) => {
   });
   const { name, email, token } = data;
   const info = await transporter.sendMail({
-    from: 'Direccion de Sistemas ',
+    from: '"Direccion Sistemas y Comunicaciones 🤖" <contactoweb@legislaturachaco.gob.ar>',
     to: email,
-    subject: 'Recuperar contraseña',
-    text: 'Recupera tu contraseña',
+    subject: 'Recuperar contraseña 🤖',
+    text: 'Recupera tu contraseña 🤖',
     html: `
-      <h1>Hola ${name}</h1>
+      <h1>Hola${name}</h1>
       <p>Para recuperar tu contraseña por favor da click en el siguiente enlace</p>
       <a href="${config.BACKEND_URL}:${config.PORT}/auth/forget-password/${token}">Restablecer contraseña</a>
       Si no solicitaste el cambio de contraseña, por favor ignora este mensaje.

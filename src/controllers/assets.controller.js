@@ -1,13 +1,13 @@
 import TypeAsset from '../models/TypeAsset.js';
 import Area from '../models/Area.js';
-import Edifice from '../models/Edifice.js';
+import Building from '../models/Building.js';
 
 // Form for creating a new asset (GET)
 const assetsCreate = async (req, res) => {
-  const [typeAssets, areas, edifices] = await Promise.all([ // Destructure the array of promises
+  const [typeAssets, areas, buildings] = await Promise.all([ // Destructure the array of promises
     TypeAsset.findAll(),
     Area.findAll(),
-    Edifice.findAll()
+    Building.findAll()
   ]);
 
   res.render('assets/create', {
@@ -16,7 +16,7 @@ const assetsCreate = async (req, res) => {
     authenticated: true,
     typeAssets,
     areas,
-    edifices
+    buildings
   });
 };
 
