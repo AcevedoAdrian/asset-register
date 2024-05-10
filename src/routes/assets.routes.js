@@ -1,9 +1,10 @@
 import express from 'express';
-
-import { assetsCreate } from '../controllers/assets.controller.js';
+import validateAsset from '../middleware/validateAsset.js';
+import { formCreateAsset, createAsset } from '../controllers/assets.controller.js';
 
 const router = express.Router();
 
-router.get('/create', assetsCreate);
+router.get('/create', formCreateAsset);
+router.post('/create', validateAsset, createAsset);
 
 export default router;

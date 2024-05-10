@@ -18,18 +18,6 @@ const Asset = db.define('Assets', {
     allowNull: false,
     defaultValue: 'available'
   },
-  typeAsset: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  Area: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  Building: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
   serial: {
     type: DataTypes.STRING,
     allowNull: true

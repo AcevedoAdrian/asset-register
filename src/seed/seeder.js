@@ -1,12 +1,11 @@
 import { exit, argv } from 'node:process';
 
-import Area from '../models/Area.js';
-import Building from '../models/Building.js';
-import TypeAsset from '../models/TypeAsset.js';
+import { Area, Asset, Building, TypeAsset, User } from '../models/index.js';
 
 import area from './areas.js';
 import building from './buildings.js';
 import typeAsset from './typeassets.js';
+import user from './users.js';
 import db from '../config/db.js';
 
 const importData = async () => {
@@ -17,7 +16,8 @@ const importData = async () => {
     await Promise.all([
       Area.bulkCreate(area),
       Building.bulkCreate(building),
-      TypeAsset.bulkCreate(typeAsset)
+      TypeAsset.bulkCreate(typeAsset),
+      User.bulkCreate(user)
     ]);
     exit();
   } catch (error) {
@@ -28,12 +28,14 @@ const importData = async () => {
 
 const deleteData = async () => {
   try {
-    await Promise.all([
-      Area.destroy({ where: {}, truncate: true }),
-      Building.destroy({ where: {}, truncate: true }),
-      TypeAsset.destroy({ where: {}, truncate: true })
-    ]);
-    // await db.sync({ force: true }); // Force sync to reset autoincrement
+    // await Promise.all([
+    //   Asset.destroy({ where: {}, truncate: true, force: true }),
+    //   User.destroy({ where: {}, truncate: true, force: true }),
+    //   Area.destroy({ where: {}, truncate: true, force: true }),
+    //   Building.destroy({ where: {}, truncate: true, force: true }),
+    //   TypeAsset.destroy({ where: {}, truncate: true, force: true })
+    // ]);
+    await db.sync({ force: true }); // Force sync to reset autoincrement
     console.log('Data Deleted Successfully');
     exit();
   } catch (error) {

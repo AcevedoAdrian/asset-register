@@ -5,12 +5,19 @@ block container
     h1(class="text-4xl my-10 font-extrabold text-center") Registo 
       span(class="font-normal text-green-500") de Bienes
     h2(class="text-center text-2xl font-extrabold ")= namePage
+    if errors && errors.length > 0
+      div(class="max-w-md mx-auto my-10 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center") 
+        
+        ul
+          each error in errors
+            li(class="font-bold uppercase")= error.msg   
 
     div(class="bg-wite shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
       form(
-        action="/assets" 
+        action="/assets/create" 
         method="POST"
         class="space-y-8"
+        noValidate
         )
         div(class="space-y-8")
           h3(class="text-lg leading-6 font-medium text-gray-900") Datos del Bien
@@ -20,13 +27,14 @@ block container
           div(class="form-group")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="inventory") Numero de Serie
+                for="inventory") Numero de Inventario
               input(
                 id="inventory", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
                 placeholder="Ingresa el numero de inventario: ej. 1900355225",
                 type="number", 
-                name="inventory", 
+                name="inventory",
+                value= data.inventory ? data.inventory : '',
                 required
               )
           div(class="md:flex md:gap-4 space-x-5 space-y-0")
@@ -42,7 +50,10 @@ block container
                 )
                   option(value="") - Selecciona el tipo de bien -
                   each typeAsset in typeAssets
-                    option(value=typeAsset.id)= typeAsset.name
+                    option(
+                      value=typeAsset.id 
+                      selected= data.typeAsset ? data.typeAsset == typeAsset.id ? true : false : null
+                    )= typeAsset.name
             //- Status
             div(class="form-group md:w-1/2")
                 label(
@@ -55,8 +66,12 @@ block container
                   required
                 )
                   option(value="") - Selecciona el estado del bien -
-                  option(value="available") Activo
-                  option(value="unavailable") Inactivo
+                  option(value="available"
+                    selected= data.status ? data.status == 'available' ? true : false : null
+                  ) Activo
+                  option(value="unavailable"
+                    selected= data.status ? data.status == 'unavailable' ? true : false : null
+                  ) Inactivo
                   
           div(class="md:flex md:gap-4 space-x-5 space-y-0")
             //- Area
@@ -71,7 +86,10 @@ block container
                 )
                   option(value="") - Selecciona el area -
                   each area in areas
-                    option(value=area.id)= area.name
+                    option(
+                      value=area.id
+                      selected= data.area ? data.area == area.id ? true : false : null
+                    )= area.name
             //- Location
             div(class="form-group md:w-1/2")
               label(
@@ -84,7 +102,10 @@ block container
                 )
                   option(value="") - Selecciona el Edificio -
                   each building in buildings
-                    option(value=building.id)= building.name
+                    option(
+                      value=building.id
+                      selected= data.building ? data.building == building.id ? true : false : null
+                    )= building.name
           //- Serial number 
           div(class="form-group")
               label(
@@ -96,6 +117,7 @@ block container
                 placeholder="Ingresa el numero de serie: ej. 40002514511",
                 type="number", 
                 name="serial", 
+                value= data.serial ? data.serial : '',
                 required
               )              
 
@@ -108,6 +130,8 @@ block container
                 id="description", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
                 placeholder="Ingresa la descripcion del bien",
-                name="description", 
+                name="description",
                 required
-              )
+              )= data.description ? data.description : ''
+          //- Submit
+          input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Registrar Bien")

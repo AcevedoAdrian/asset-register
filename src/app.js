@@ -6,6 +6,7 @@ import homeRouter from './routes/home.routes.js';
 import usersRouter from './routes/users.routes.js';
 import assetsRouter from './routes/assets.routes.js';
 import { cookie } from 'express-validator';
+import securityRoute from './middleware/securityRoute.js';
 // Create express app
 const app = express();
 
@@ -30,7 +31,7 @@ app.set('view engine', 'pug');
 app.set('views', './src/views');
 
 // Routes
-app.use('/', homeRouter);
+app.use('/', securityRoute, homeRouter);
 app.use('/auth', usersRouter);
 app.use('/assets', assetsRouter);
 
