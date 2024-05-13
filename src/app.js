@@ -1,11 +1,13 @@
 import express from 'express';
+import { cookie } from 'express-validator';
+import cookieParser from 'cookie-parser';
+
 import db from './config/db.js';
 import { publicPath } from './utils/utils.js';
 import config from './config/config.js';
 import homeRouter from './routes/home.routes.js';
 import usersRouter from './routes/users.routes.js';
 import assetsRouter from './routes/assets.routes.js';
-import { cookie } from 'express-validator';
 import securityRoute from './middleware/securityRoute.js';
 // Create express app
 const app = express();
@@ -25,13 +27,14 @@ app.use(express.static(publicPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie(config.COOKIE_SECRET));
+app.use(cookieParser(config.cookiePrivateKey));
 
 // Enable PUG
 app.set('view engine', 'pug');
 app.set('views', './src/views');
 
 // Routes
-app.use('/', securityRoute, homeRouter);
+app.use('/home', securityRoute, homeRouter);
 app.use('/auth', usersRouter);
 app.use('/assets', assetsRouter);
 

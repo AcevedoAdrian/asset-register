@@ -57,6 +57,11 @@ const User = db.define('Users', {
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(user.password, salt);
     }
+  },
+  scopes: {
+    withoutPassword: {
+      attributes: { exclude: ['password', 'token', 'confirmed', 'active', 'createdAt', 'updatedAt'] }
+    }
   }
 });
 // Methods to compare the password

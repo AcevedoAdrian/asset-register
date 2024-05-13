@@ -86,7 +86,8 @@ const authenticateUser = async (req, res) => {
     httpOnly: true,
     secure: false, // Pasar a true en produccion para use https
     sameSite: false, // Pasar a true en produccion para proteger contra CSRF
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+    // maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }).redirect('/home');
 };
 

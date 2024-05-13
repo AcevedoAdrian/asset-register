@@ -39,6 +39,7 @@ const createAsset = async (req, res) => {
       data: req.body
     });
   }
+
   try {
     const asset = await Asset.create({
       inventory: req.body.inventory,
@@ -50,6 +51,8 @@ const createAsset = async (req, res) => {
       description: req.body.description,
       userId: req.user.id
     });
+    const { id } = asset;
+    res.redirect(`/assets/show/${id}`);
   } catch (error) {
     console.log(error);
   }
