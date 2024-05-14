@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator';
-import { TypeAsset, Area, Building, Asset } from '../models/index.js';
+import { TypeAsset, Area, Building, Asset, User } from '../models/index.js';
 // Form for creating a new asset (GET)
 const formCreateAsset = async (req, res) => {
   const [typeAssets, areas, buildings] = await Promise.all([ // Destructure the array of promises
@@ -41,6 +41,7 @@ const createAsset = async (req, res) => {
   }
 
   try {
+    // console.log(req);
     const asset = await Asset.create({
       inventory: req.body.inventory,
       typeAssetId: req.body.typeAsset,
@@ -51,10 +52,30 @@ const createAsset = async (req, res) => {
       description: req.body.description,
       userId: req.user.id
     });
-    const { id } = asset;
-    res.redirect(`/assets/show/${id}`);
+    res.redirect('/assets/list');
   } catch (error) {
     console.log(error);
   }
 };
-export { formCreateAsset, createAsset };
+
+const listAssets = async (req, res) => {
+  const assets = await Asset.findAll(
+    {
+      where: {
+        active: 0
+      },
+      include: [
+        { model: TypeAsset, attributes: ['name'] },
+        { model: Area, attributes: ['name'] },
+        { model: Building, attributes: ['name'] }
+
+      ]
+    });
+  res.render('assets/list', {
+    namePage: 'Listado de Bienes',
+    message: 'Welcome to the list of assets page',
+    authenticated: true,
+    assets
+  });
+};
+export { formCreateAsset, createAsset, listAssets };

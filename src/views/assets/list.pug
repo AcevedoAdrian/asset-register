@@ -1,0 +1,48 @@
+extends ../layout/index
+
+block container  
+  div(class="my-10")
+    
+    h2(class="text-center text-2xl font-extrabold ")= namePage
+        if assets.length
+          //- pre= JSON.stringify(assets, null, 2)
+          div(class="bg-wite shadow rounded-lg  py-5")
+            ul(class="divide-y divide-gray-200")
+              each asset in assets
+                table(class="table-auto w-full font-medium text-sm")
+                  thead
+                    tr(class="bg-emerald-700 font-bold text-white")
+                      th(class="px-4 py-2") Numero de Inventario
+                      th(class="px-4 py-2") Tipo de Bien
+                      th(class="px-4 py-2") Serial
+                      th(class="px-4 py-2") Estado
+                      th(class="px-4 py-2") Area
+                      th(class="px-4 py-2") Edificio
+                      th(class="px-4 py-2") Descripcion
+                      th(class="px-4 py-2") Acciones
+
+                  tbody
+                    each asset in assets
+                      tr(class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer")
+                        td(class="border px-4 py-2")= asset.inventory
+                        td(class="border px-4 py-2")= asset.TypeAsset.name
+                        td(class="border px-4 py-2")= asset.serial
+                        td(class="border px-4 py-2")= asset.status
+                        td(class="border px-4 py-2")= asset.Area.name
+                        td(class="border px-4 py-2")= asset.Building.name
+                        td(class="border px-4 py-2 truncate")= asset.description
+                        td(class="border px-4 py-2")
+                       
+                          a(
+                            href=`/assets/${asset.id}/delete`
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                          ) Ver
+                        
+                          a(
+                            href=`/assets/${asset.id}/edit`
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                          ) Editar
+              
+
+        else 
+          p.text-center No hay bienes registrados

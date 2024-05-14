@@ -10,10 +10,11 @@ const securityRoute = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(_token, config.JWT_SECRET);
+    console.log(decoded);
     const user = await User.scope('withoutPassword').findByPk(decoded.id);
+
     if (user) {
       req.user = user;
-      console.log(user);
     } else {
       return res.clearCookie('_token').redirect('/auth/login');
     }

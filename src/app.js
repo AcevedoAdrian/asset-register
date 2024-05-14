@@ -36,7 +36,7 @@ app.set('views', './src/views');
 // Routes
 app.use('/home', securityRoute, homeRouter);
 app.use('/auth', usersRouter);
-app.use('/assets', assetsRouter);
+app.use('/assets', securityRoute, assetsRouter);
 
 app.listen(config.PORT, () => {
   console.log(`Server is listening on port ${config.PORT}`);
