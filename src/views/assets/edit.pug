@@ -12,7 +12,6 @@ block container
 
     div(class="bg-wite shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
       form(
-        action="/assets/create" 
         method="POST"
         class="space-y-8"
         noValidate
@@ -50,7 +49,7 @@ block container
                   each typeAsset in typeAssets
                     option(
                       value=typeAsset.id 
-                      selected= data.typeAsset ? data.typeAsset == typeAsset.id ? true : false : null
+                      selected= data.typeAssetId ? data.typeAssetId == typeAsset.id ? true : false : null
                     )= typeAsset.name
             //- Status
             div(class="form-group md:w-1/2")
@@ -86,7 +85,7 @@ block container
                   each area in areas
                     option(
                       value=area.id
-                      selected= data.area ? data.area == area.id ? true : false : null
+                      selected= data.areaId ? data.areaId == area.id ? true : false : null
                     )= area.name
             //- Location
             div(class="form-group md:w-1/2")
@@ -102,7 +101,7 @@ block container
                   each building in buildings
                     option(
                       value=building.id
-                      selected= data.building ? data.building == building.id ? true : false : null
+                      selected= data.buildingId ? data.buildingId == building.id ? true : false : null
                     )= building.name
           //- Serial number 
           div(class="form-group")
@@ -132,4 +131,10 @@ block container
                 required
               )= data.description ? data.description : ''
           //- Submit
-          input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Registrar Bien")
+          input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Guardar Cambios")
+          
+      form(action=`/assets/delete/${data.id}`, method="POST")
+        input( class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Eliminar Bien")
+
+block scripts
+  //- script(src="/js/assets/delete.js")
