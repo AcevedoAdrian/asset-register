@@ -1,4 +1,4 @@
-extends ../layout/index
+extends ../layout/admin
 
 block container  
   div(class="my-10")
@@ -8,7 +8,6 @@ block container
           //- pre= JSON.stringify(assets, null, 2)
           div(class="bg-wite shadow rounded-lg  py-5")
             ul(class="divide-y divide-gray-200")
-              each asset in assets
                 table(class="table-auto w-full font-medium text-sm")
                   thead
                     tr(class="bg-emerald-700 font-bold text-white")
@@ -34,15 +33,29 @@ block container
                         td(class="border px-4 py-2")
                        
                           a(
-                            href=`/assets/${asset.id}/delete`
-                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                            href=`/assets/view/${asset.id}`
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2"
                           ) Ver
                         
                           a(
                             href=`/assets/edit/${asset.id}`
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                           ) Editar
-              
-
+            div(class="bg-white px-4 py-3 flex items-center justify-between border-t border-grey-200 sm:px-6 ")    
+              div(class="hidden sm:flex-1 sm:flex sm:item-center sm:justify-between")  
+                p(class="text-sm text-gray-700 gap-2") Mostrando   
+                  span(class="font-medium") #{offset + 1} a 
+                  
+                  span(class="font-medium") #{totalAsset < limit + offset ? totalAsset : limit + offset } de  
+                  
+                  span(class="font-medium") #{totalAsset } resultados
+              div(class="hidden sm:block")
+                nav(class="relative z-0 inline-flex rounded-md shadow-md ") 
+                 - let n = 1
+                      while n <= pages
+                        a(
+                          href=`/assets/list?page=${n}`
+                          class=` relative inline-flex items-center px-4 py-2 border text-sm font-medium ${page == n ? 'bg-emerald-50 border-emerald-500 text-emerald-600 ' : 'bg-white border-grey-300 text-gray-500 hover:bg-grey-150'}`
+                        ) #{n++}
         else 
           p.text-center No hay bienes registrados

@@ -1,4 +1,4 @@
-extends ../layout/index
+extends ../layout/admin
 
 block container  
   div(class="my-10")
@@ -132,9 +132,14 @@ block container
               )= data.description ? data.description : ''
           //- Submit
           input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Guardar Cambios")
+          button(
+            class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase",
+            type="button"
+            onClick=`deleteAsset("${data.id}")`
+            ) Eliminar Bien
           
-      form(action=`/assets/delete/${data.id}`, method="POST")
-        input( class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Eliminar Bien")
+      //- form(action=`/assets/delete/${data.id}`, method="POST")
+      //-   input( class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Eliminar Bien")
 
 block scripts
-  //- script(src="/js/assets/delete.js")
+  script(src="/js/assets/delete.js")

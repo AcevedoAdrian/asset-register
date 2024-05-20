@@ -1,0 +1,64 @@
+extends ../layout/admin
+
+block container  
+  div(class="my-10")
+    div(class="py-5")
+      h1(class="text-4xl my-10 font-extrabold text-center")= "Informacion del Bien"
+      div(class="bg-white shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
+        div(class="border-t border-gray-100")
+          dl(class="divide-y divide-gray-300")
+            div( class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0" ) 
+              dt(class="text-sm leading-6 uppercase text-gray-500 font-bold")= "Numero de Inventario: "
+              dd(class="mt-1 text-sm leading-6 text-black-500 font-medium sm:col-span-2 sm:mt-0")= data.inventory
+
+            div( class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0")
+                dt( class="text-sm uppercase text-gray-500 font-bold leading-6 ")= "Tipo de Bien: "
+                dd( class="mt-1 text-sm  text-black-500 font-medium sm:col-span-2 sm:mt-0" )
+                 a(href="#" )= data.TypeAsset.name         
+
+            div( class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0")
+                dt( class="text-sm uppercase text-gray-500 font-bold leading-6 ")= "Estado: "
+                dd( class="mt-1 text-sm leading-6 text-black-500 font-medium sm:col-span-2 sm:mt-0" )
+                 a(href="#" )= data.status       
+
+            div( class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0")
+                dt( class="text-sm uppercase text-gray-500 font-bold leading-6 ")= "Area que pertenece: "
+                dd( class="mt-1 text-sm leading-6 text-black-500 font-medium sm:col-span-2 sm:mt-0" )
+                 a(href="#" )= data.Area.name      
+
+            div( class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0")
+                dt( class="text-sm uppercase text-gray-500 font-bold leading-6 ")= "Edificio donde se encuentra: "
+                dd( class="mt-1 text-sm leading-6 text-black-500 font-medium sm:col-span-2 sm:mt-0" )
+                 a(href="#" )= data.Building.name      
+
+            div( class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0")
+                dt( class="text-sm uppercase text-gray-500 font-bold leading-6 ")= "Serial: "
+                dd( class="mt-1 text-sm leading-6 text-black-500 font-medium sm:col-span-2 sm:mt-0" )= data.serial     
+
+            div(class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0")
+              dt(class="text-sm uppercase text-gray-500 font-bold leading-6 ")= "Descripcion"
+              dd(class="mt-1 text-sm leading-6 text-black-500 font-medium sm:col-span-2 sm:mt-0")= data.description
+
+    //-     div(class="")
+    //-       a(href="#" class="font-bold text-gray-600 text-lg")= "Numero de Inventario: "
+    //-         span(class="font-normal text-gray-800")= data.inventory       
+    //-     div(class="my-2")
+    //-       a(href="#" class="font-bold text-gray-600 text-lg")= "Tipo de Bien: "
+    //-         span(class="font-normal text-gray-800")= data.TypeAsset.name
+    //-     div( class="my-2")
+    //-       a(href="#" class="font-bold text-gray-600 text-lg")= "Estado: "
+    //-         span(class="font-normal text-gray-800")= data.status
+    //-     div( class="my-2")
+    //-       a(href="#" class="font-bold text-gray-600 text-lg")= "Area que pertenece: "
+    //-         span(class="font-normal text-gray-800")= data.Area.name
+    //-     div( class="my-2")
+    //-       a(href="#" class="font-bold text-gray-600 text-lg")= "Edificio donde se encuentra: "
+    //-         span(class="font-normal text-gray-800")= data.Building.name
+    //-     div( class="my-2")
+    //-       a(href="#" class="font-bold text-gray-600 text-lg")= "Numero de Serial: "
+    //-         span(class="font-normal text-gray-800")= data.serial
+    //-     div( class="my-2")
+    //-       a(href="#" class="font-bold text-gray-600 text-lg")= "Descripcion: "
+    //-         span(class="font-normal text-gray-800")= data.description            
+
+    

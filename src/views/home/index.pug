@@ -1,4 +1,4 @@
-extends ../layout/index
+extends ../layout/home
 
 block container  
   div(class="my-10")
@@ -6,4 +6,33 @@ block container
       span(class="font-normal text-green-500") de Bienes
     h2(class="text-center text-2xl font-extrabold ")= namePage
 
-    a(href="/assets/create" class="rounded py-2 px-10 inline-block font-bold bg-blue-500 hover:bg-blue-600 text-sm text-center text-white uppercase my-5 w-full sm:w-auto ") Registrar Bien
+    a(href="/assets/create" class="rounded py-2 px-10 inline-block font-bold bg-blue-500 hover:bg-blue-600 text-sm text-center text-white uppercase my-5 w-full sm:w-auto ") Actuaciones Simples
+
+    //- List of assets whit pagination
+    if assets.length
+      //- pre= JSON.stringify(assets, null, 2)
+      div(class="bg-wite shadow rounded-lg  py-5")
+        ul(class="divide-y divide-gray-200")
+          each asset in assets
+            table(class="table-auto w-full font-medium text-sm")
+              thead
+                tr(class="bg-emerald-700 font-bold text-white")
+                  th(class="px-4 py-2") Numero de Inventario
+                  th(class="px-4 py-2") Tipo de Bien
+                  th(class="px-4 py-2") Serial
+                  th(class="px-4 py-2") Estado
+                  th(class="px-4 py-2") Area
+                  th(class="px-4 py-2") Edificio
+                  th(class="px-4 py-2") Descripcion
+                  tbody
+                    each asset in assets
+                      tr(class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer")
+                        td(class="border px-4 py-2")= asset.inventory
+                        td(class="border px-4 py-2")= asset.TypeAsset.name
+                        td(class="border px-4 py-2")= asset.serial
+                        td(class="border px-4 py-2")= asset.status
+                        td(class="border px-4 py-2")= asset.Area.name
+                        td(class="border px-4 py-2")= asset.Building.name
+                        td(class="border px-4 py-2 truncate")= asset.description
+    else 
+          p.text-center No hay bienes registrados

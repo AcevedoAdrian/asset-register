@@ -30,7 +30,6 @@ const createAsset = async (req, res) => {
 
     return res.render('assets/create', {
       namePage: 'Registrar Bien',
-      message: 'Welcome to the create asset page',
       errors: resultError.array(),
       authenticated: true,
       typeAssets,
@@ -41,7 +40,6 @@ const createAsset = async (req, res) => {
   }
 
   try {
-    // console.log(req);
     const asset = await Asset.create({
       inventory: req.body.inventory,
       typeAssetId: req.body.typeAsset,
@@ -59,24 +57,60 @@ const createAsset = async (req, res) => {
 };
 
 const listAssets = async (req, res) => {
-  const assets = await Asset.findAll(
-    {
-      where: {
-        active: 0
-      },
-      include: [
-        { model: TypeAsset, attributes: ['name'] },
-        { model: Area, attributes: ['name'] },
-        { model: Building, attributes: ['name'] }
+  const { page } = req.query;
+  console.log(req.query.page);
+  const regularExpressionPaginate = /^[0-9]+$/; // Regular expression to validate that the page is a number greater than 0 and not a string or other type of data type that is not a number or integer
 
+  if (!regularExpressionPaginate.test(page)) {
+    return res.redirect('/assets/list?page=1');
+  }
+  try {
+    const limit = 5;
+    // Calculate the number of assets to display per page
+    // const offset = ((page * limit) - limit);
+    const offset = (page - 1) * limit;
+    const [assets, totalAsset] = await Promise.all(
+      [
+      // Find all the assets that are not active
+        Asset.findAll(
+          {
+            limit,
+            offset,
+            where: {
+              active: 0
+            },
+            include: [
+              { model: TypeAsset, attributes: ['name'] },
+              { model: Area, attributes: ['name'] },
+              { model: Building, attributes: ['name'] }
+
+            ]
+          }),
+
+        Asset.count({
+          where: {
+            active: 0
+          }
+        })
       ]
+    );
+
+    const pages = Math.ceil(totalAsset / limit);
+    console.log(totalAsset);
+
+    res.render('assets/list', {
+      namePage: 'Listado de Bienes',
+      authenticated: true,
+      assets,
+      pages,
+      page,
+      totalAsset,
+      limit,
+      offset
     });
-  res.render('assets/list', {
-    namePage: 'Listado de Bienes',
-    message: 'Welcome to the list of assets page',
-    authenticated: true,
-    assets
-  });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const formEditAsset = async (req, res) => {
@@ -97,8 +131,6 @@ const formEditAsset = async (req, res) => {
   ]);
 
   res.render('assets/edit', {
-    namePage: 'Editar Bien',
-    message: 'Welcome to the edit asset page',
     authenticated: true,
     typeAssets,
     areas,
@@ -117,7 +149,6 @@ const editAsset = async (req, res) => {
     ]);
     res.render('assets/edit', {
       namePage: 'Editar Bien',
-      message: 'Welcome to the edit asset page',
       errors: resultError.array(),
       authenticated: true,
       typeAssets,
@@ -168,15 +199,40 @@ const deleteAsset = async (req, res) => {
   if (asset.userId.toString() !== req.user.id.toString()) {
     res.redirect('/assets/list');
   }
-  console.log('LLegue aqui');
   try {
-    console.log(asset);
     asset.active = 1;
     await asset.save();
-    return res.redirect('/assets/list');
+    // return res.redirect('/assets/list');
+    return res.status(200).json({ status: 200, message: 'Bien eliminado con éxito' });
   } catch (error) {
     console.log(error);
   }
+};
+
+const formViewAsset = async (req, res) => {
+  const { id } = req.params;
+  const asset = await Asset.findByPk(id,
+    {
+      include: [
+        { model: TypeAsset, attributes: ['name'] },
+        { model: Area, attributes: ['name'] },
+        { model: Building, attributes: ['name'] }
+      ]
+    }
+  );
+  if (!asset) {
+    res.redirect('/404');
+  }
+
+  if (asset.userId.toString() !== req.user.id.toString()) {
+    res.redirect('/assets/list');
+  }
+
+  res.render('assets/view', {
+    namePage: 'Ver Bien',
+    authenticated: true,
+    data: asset
+  });
 };
 
 export {
@@ -185,5 +241,6 @@ export {
   listAssets,
   formEditAsset,
   editAsset,
-  deleteAsset
+  deleteAsset,
+  formViewAsset
 };

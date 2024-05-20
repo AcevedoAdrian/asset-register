@@ -88,7 +88,7 @@ const authenticateUser = async (req, res) => {
     sameSite: false, // Pasar a true en produccion para proteger contra CSRF
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
     // maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  }).redirect('/home');
+  }).redirect('/admin');
 };
 
 const formRegister = async (req, res) => {

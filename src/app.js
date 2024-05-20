@@ -9,6 +9,7 @@ import homeRouter from './routes/home.routes.js';
 import usersRouter from './routes/users.routes.js';
 import assetsRouter from './routes/assets.routes.js';
 import securityRoute from './middleware/securityRoute.js';
+import adminRouter from './routes/admin.routes.js';
 // Create express app
 const app = express();
 
@@ -34,7 +35,8 @@ app.set('view engine', 'pug');
 app.set('views', './src/views');
 
 // Routes
-app.use('/home', securityRoute, homeRouter);
+app.use('/home', homeRouter);
+app.use('/admin', securityRoute, adminRouter);
 app.use('/auth', usersRouter);
 app.use('/assets', securityRoute, assetsRouter);
 
