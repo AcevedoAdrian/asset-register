@@ -13,10 +13,13 @@ const Asset = db.define('Assets', {
     type: DataTypes.INTEGER(15),
     allowNull: false
   },
-  status: {
-    type: DataTypes.ENUM('available', 'unavailable'),
-    allowNull: false,
-    defaultValue: 'available'
+  surveyDate: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  invoiceNumber: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
   serial: {
     type: DataTypes.STRING,

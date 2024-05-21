@@ -1,5 +1,5 @@
 
-const area =
+const areas =
   [
     {
       name: 'BLOQUE DE LA CONCERTACION - FORJA'
@@ -377,4 +377,4 @@ const area =
       name: '.............................'
     }
   ];
-export default area;
+export default areas;
