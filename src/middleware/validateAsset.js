@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 const validateAsset = [
   body('inventory')
     .isNumeric().withMessage('El Numero de Inventario debe ser un numero')
-    .notEmpty().withMessage('El Numero de Inventario es obligatorio'),
+    .withMessage('El Numero de Inventario es obligatorio'),
 
   body('typeAsset')
     .isNumeric().withMessage('Selecciona un Tipo de Bien')

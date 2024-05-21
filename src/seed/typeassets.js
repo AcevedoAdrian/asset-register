@@ -19,6 +19,10 @@ const typeassets = [
   { id: 17, name: 'Servidor' },
   { id: 18, name: 'Proyector' },
   { id: 19, name: 'Pantalla' },
-  { id: 20, name: 'Televisor' }
+  { id: 20, name: 'Televisor' },
+  { id: 21, name: 'UPS' },
+  { id: 22, name: 'DVR' },
+  { id: 23, name: 'Camara' },
+  { id: 24, name: 'Escaner' }
 ];
 export default typeassets;

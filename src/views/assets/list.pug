@@ -6,11 +6,11 @@ block container
     h2(class="text-center text-2xl font-extrabold ")= namePage
         if assets.length
           //- pre= JSON.stringify(assets, null, 2)
-          div(class="bg-wite shadow rounded-lg  py-5")
+          div(class="bg-wite shadow rounded-lg ")
             ul(class="divide-y divide-gray-200")
                 table(class="table-auto w-full font-medium text-sm")
                   thead
-                    tr(class="bg-emerald-700 font-bold text-white")
+                    tr(class="bg-emerald-600 font-bold text-white")
                       th(class="px-4 py-2") Numero de Inventario
                       th(class="px-4 py-2") Tipo de Bien
                       th(class="px-4 py-2") Serial
@@ -22,15 +22,15 @@ block container
 
                   tbody
                     each asset in assets
-                      tr(class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer")
-                        td(class="border px-4 py-2")= asset.inventory
-                        td(class="border px-4 py-2")= asset.TypeAsset.name
-                        td(class="border px-4 py-2")= asset.serial
-                        td(class="border px-4 py-2")= asset.status
-                        td(class="border px-4 py-2")= asset.Area.name
-                        td(class="border px-4 py-2")= asset.Building.name
-                        td(class="border px-4 py-2 truncate")= asset.description
-                        td(class="border px-4 py-2")
+                      tr(class="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-emerald-100 dark:hover:bg-gray-600 cursor-pointer")
+                        td(class="border-b px-4 py-2")= asset.inventory
+                        td(class="border-b px-4 py-2")= asset.TypeAsset.name
+                        td(class="border-b px-4 py-2")= asset.serial
+                        td(class="border-b px-4 py-2")= asset.status
+                        td(class="border-b px-4 py-2")= asset.Area.name
+                        td(class="border-b px-4 py-2")= asset.Building.name
+                        td(class="border-b px-4 py-2 truncate")= asset.description
+                        td(class="border-b px-4 py-2")
                        
                           a(
                             href=`/assets/view/${asset.id}`
@@ -42,6 +42,12 @@ block container
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                           ) Editar
             div(class="bg-white px-4 py-3 flex items-center justify-between border-t border-grey-200 sm:px-6 ")    
+              div(class="flex-1 flex justify-between sm:hidden")
+
+                  a(href=`/assets/list?page=${page - 1}` class=`${page === 1 ? 'pointer-events-none' : ''} relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50`) Anterior
+
+                  a(href=`/assets/list?page=${page + 1}` class=`${page === pages ? 'pointer-events-none' : ''} relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50`) Siguiente
+
               div(class="hidden sm:flex-1 sm:flex sm:item-center sm:justify-between")  
                 p(class="text-sm text-gray-700 gap-2") Mostrando   
                   span(class="font-medium") #{offset + 1} a 
@@ -50,12 +56,12 @@ block container
                   
                   span(class="font-medium") #{totalAsset } resultados
               div(class="hidden sm:block")
-                nav(class="relative z-0 inline-flex rounded-md shadow-md ") 
+                nav(class="relative z-0 inline-flex rounded-lg shadow-md ") 
                  - let n = 1
                       while n <= pages
                         a(
                           href=`/assets/list?page=${n}`
-                          class=` relative inline-flex items-center px-4 py-2 border text-sm font-medium ${page == n ? 'bg-emerald-50 border-emerald-500 text-emerald-600 ' : 'bg-white border-grey-300 text-gray-500 hover:bg-grey-150'}`
+                          class=` relative inline-flex items-center px-4 py-2 border text-sm font-sm ${page == n ? 'bg-emerald-50 border-emerald-500 text-emerald-600 ' : 'bg-white border-grey-300 text-gray-500 hover:bg-grey-150'}`
                         ) #{n++}
         else 
-          p.text-center No hay bienes registrados
+          p(class="text-center uppercase") No hay bienes registrados

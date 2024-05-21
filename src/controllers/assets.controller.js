@@ -27,7 +27,7 @@ const createAsset = async (req, res) => {
       Area.findAll(),
       Building.findAll()
     ]);
-
+    // If there are errors, the form is displayed again with the error messages
     return res.render('assets/create', {
       namePage: 'Registrar Bien',
       errors: resultError.array(),
@@ -40,6 +40,7 @@ const createAsset = async (req, res) => {
   }
 
   try {
+    // Create a new asset
     const asset = await Asset.create({
       inventory: req.body.inventory,
       typeAssetId: req.body.typeAsset,
@@ -50,6 +51,8 @@ const createAsset = async (req, res) => {
       description: req.body.description,
       userId: req.user.id
     });
+    // Redirect to the list of assets
+    res.json({ status: 200, message: 'Bien registrado con éxito' });
     res.redirect('/assets/list');
   } catch (error) {
     console.log(error);
@@ -96,14 +99,14 @@ const listAssets = async (req, res) => {
     );
 
     const pages = Math.ceil(totalAsset / limit);
-    console.log(totalAsset);
+    const pagina = Number(page);
 
     res.render('assets/list', {
       namePage: 'Listado de Bienes',
       authenticated: true,
       assets,
       pages,
-      page,
+      page: Number(page),
       totalAsset,
       limit,
       offset
