@@ -35,75 +35,6 @@ block container
                 value= data.inventory ? data.inventory : '',
                 required
               )
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
-            //- Type de Asset
-            div(class="form-group md:w-1/2")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="typeAsset") Tipo de Bien
-              select(
-                id="typeAsset", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                name="typeAsset"
-                )
-                  option(value="") - Selecciona el tipo de bien -
-                  each typeAsset in typeAssets
-                    option(
-                      value=typeAsset.id 
-                      selected= data.typeAsset ? data.typeAsset == typeAsset.id ? true : false : null
-                    )= typeAsset.name
-            //- Status
-            div(class="form-group md:w-1/2")
-                label(
-                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                  for="status") Estado
-                select(
-                  id="status", 
-                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                  name="status", 
-                  required
-                )
-                  option(value="") - Selecciona el estado del bien -
-                  option(value="available"
-                    selected= data.status ? data.status == 'available' ? true : false : null
-                  ) Activo
-                  option(value="unavailable"
-                    selected= data.status ? data.status == 'unavailable' ? true : false : null
-                  ) Inactivo
-                  
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
-            //- Area
-            div(class="form-group md:w-1/2")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="area") Area
-              select(
-                id="area", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                name="area"
-                )
-                  option(value="") - Selecciona el area -
-                  each area in areas
-                    option(
-                      value=area.id
-                      selected= data.area ? data.area == area.id ? true : false : null
-                    )= area.name
-            //- Location
-            div(class="form-group md:w-1/2")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="building") Edificio
-              select(
-                id="building", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                name="building"
-                )
-                  option(value="") - Selecciona el Edificio -
-                  each building in buildings
-                    option(
-                      value=building.id
-                      selected= data.building ? data.building == building.id ? true : false : null
-                    )= building.name
           //- Serial number 
           div(class="form-group")
               label(
@@ -117,7 +48,139 @@ block container
                 name="serial", 
                 value= data.serial ? data.serial : '',
                 required
-              )              
+              )   
+          //- Invoice number
+          div(class="form-group")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="invoiceNumber") Numero de Factura
+              input(
+                id="invoiceNumber", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                placeholder="Ingresa el numero de factura: ej. 40002514511",
+                type="number", 
+                name="invoiceNumber", 
+                value= data.invoiceNumber ? data.invoiceNumber : '',
+                required
+              )     
+          //- Survey Date
+          div(class="form-group")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="surveyDate") Fecha de Relevo
+              input(
+                id="surveyDate", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                type="date", 
+                name="surveyDate", 
+                value= data.surveyDate ? data.surveyDate : '',
+                required
+              )  
+          
+          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+            //- Type de Asset
+            div(class="form-group md:w-1/2")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="typeAsset") Tipo de Bien
+              select(
+                id="typeAsset", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="typeAsset"
+                )
+                  option(value="") - Selecciona el tipo de bien -
+                    each typeAsset in typeAssets
+                      option(
+                        value=typeAsset.id 
+                        selected= data.typeAsset ? data.typeAsset == typeAsset.id ? true : false : null
+                      )= typeAsset.name
+              //- State
+            div(class="form-group md:w-1/2")
+                label(
+                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                  for="state") Estado
+                select(
+                  id="state", 
+                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                  name="state", 
+                  required
+                )
+                  option(value="") - Selecciona el Estado -
+                    each state in states
+                      option(
+                        value=state.id
+                        selected= data.state ? data.state == state.id ? true : false : null
+                      )= state.name
+                  
+          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+            //- Area
+            div(class="form-group md:w-1/2")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="area") Area
+              select(
+                id="area", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="area"
+                )
+                  option(value="") - Selecciona el area -
+                    each area in areas
+                      option(
+                        value=area.id
+                        selected= data.area ? data.area == area.id ? true : false : null
+                      )= area.name
+            //- Location
+            div(class="form-group md:w-1/2")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="building") Edificio
+              select(
+                id="building", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="building"
+                )
+                  option(value="") - Selecciona el Edificio -
+                    each building in buildings
+                      option(
+                        value=building.id
+                        selected= data.building ? data.building == building.id ? true : false : null
+                      )= building.name
+
+          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+              //- Weighting
+              div(class="form-group md:w-1/2")
+                label(
+                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                  for="weighting") Ponderacion
+                select(
+                  id="weighting", 
+                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                  name="weighting"
+                  )
+                    option(value="") - Seleccione la Ponderacion-
+                      each weighting in weightings
+                        option(
+                          value=weighting.id
+                          selected= data.weighting ? data.weighting == weighting.id ? true : false : null
+                        )= weighting.name
+
+              //- Situation
+              div(class="form-group md:w-1/2")
+                label(
+                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                  for="situation") Situacion
+                select(
+                  id="situation", 
+                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                  name="situation"
+                  )
+                    option(value="") - Selecciona la Situacion del Bien -
+                      each situation in situations
+                        option(
+                          value=situation.id
+                          selected= data.situation ? data.situation == situation.id ? true : false : null
+                        )= situation.name
+                    
 
           //- Description
           div(class="form-group")

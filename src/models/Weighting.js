@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 
 import db from '../config/db.js';
 
-const Weighting = db.define('TypeAssets', {
+const Weighting = db.define('Weighting', {
   name: {
     type: DataTypes.STRING,
     allowNull: false

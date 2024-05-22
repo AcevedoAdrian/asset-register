@@ -1,12 +1,23 @@
 import { validationResult } from 'express-validator';
-import { TypeAsset, Area, Building, Asset, User } from '../models/index.js';
+import { TypeAsset, Area, Building, Asset, User, Weighting, State, Situation } from '../models/index.js';
 // Form for creating a new asset (GET)
 const formCreateAsset = async (req, res) => {
-  const [typeAssets, areas, buildings] = await Promise.all([ // Destructure the array of promises
-    TypeAsset.findAll(),
+  const [
+    areas,
+    buildings,
+    situations,
+    states,
+    typeAssets,
+    weightings
+  ] = await Promise.all([ // Destructure the array of promises
     Area.findAll(),
-    Building.findAll()
+    Building.findAll(),
+    Situation.findAll(),
+    State.findAll(),
+    TypeAsset.findAll(),
+    Weighting.findAll()
   ]);
+  console.log([typeAssets]);
 
   res.render('assets/create', {
     namePage: 'Registrar Bien',
@@ -15,17 +26,31 @@ const formCreateAsset = async (req, res) => {
     typeAssets,
     areas,
     buildings,
+    weightings,
+    states,
+    situations,
     data: {}
   });
 };
+
 // Create a new asset (POST)
 const createAsset = async (req, res) => {
   const resultError = validationResult(req);
   if (!resultError.isEmpty()) {
-    const [typeAssets, areas, buildings] = await Promise.all([ // Destructure the array of promises
-      TypeAsset.findAll(),
+    const [
+      areas,
+      buildings,
+      situations,
+      states,
+      typeAssets,
+      weightings
+    ] = await Promise.all([ // Destructure the array of promises
       Area.findAll(),
-      Building.findAll()
+      Building.findAll(),
+      Situation.findAll(),
+      State.findAll(),
+      TypeAsset.findAll(),
+      Weighting.findAll()
     ]);
     // If there are errors, the form is displayed again with the error messages
     return res.render('assets/create', {
@@ -35,6 +60,9 @@ const createAsset = async (req, res) => {
       typeAssets,
       areas,
       buildings,
+      situations,
+      states,
+      weightings,
       data: req.body
     });
   }
@@ -42,17 +70,20 @@ const createAsset = async (req, res) => {
   try {
     // Create a new asset
     const asset = await Asset.create({
-      inventory: req.body.inventory,
-      typeAssetId: req.body.typeAsset,
       areaId: req.body.area,
       buildingId: req.body.building,
-      serial: req.body.serial,
-      status: req.body.status,
       description: req.body.description,
-      userId: req.user.id
+      inventory: req.body.inventory,
+      invoiceNumber: req.body.invoiceNumber,
+      serial: req.body.serial,
+      situationId: req.body.situation,
+      stateId: req.body.state,
+      surveyDate: req.body.surveyDate,
+      typeAssetId: req.body.typeAsset,
+      userId: req.user.id,
+      weightingId: req.body.weighting
     });
     // Redirect to the list of assets
-    res.json({ status: 200, message: 'Bien registrado con éxito' });
     res.redirect('/assets/list');
   } catch (error) {
     console.log(error);
@@ -85,7 +116,10 @@ const listAssets = async (req, res) => {
             include: [
               { model: TypeAsset, attributes: ['name'] },
               { model: Area, attributes: ['name'] },
-              { model: Building, attributes: ['name'] }
+              { model: Building, attributes: ['name'] },
+              { model: Weighting, attributes: ['name'] },
+              { model: State, attributes: ['name'] },
+              { model: Situation, attributes: ['name'] }
 
             ]
           }),
@@ -99,7 +133,6 @@ const listAssets = async (req, res) => {
     );
 
     const pages = Math.ceil(totalAsset / limit);
-    const pagina = Number(page);
 
     res.render('assets/list', {
       namePage: 'Listado de Bienes',
@@ -127,10 +160,14 @@ const formEditAsset = async (req, res) => {
     res.redirect('/assets/list');
   }
 
-  const [typeAssets, areas, buildings] = await Promise.all([ // Destructure the array of promises
+  const [typeAssets, areas, buildings, weightings, states, situations] = await Promise.all([ // Destructure the array of promises
     TypeAsset.findAll(),
     Area.findAll(),
-    Building.findAll()
+    Building.findAll(),
+    Weighting.findAll(),
+    State.findAll(),
+    Situation.findAll()
+
   ]);
 
   res.render('assets/edit', {
@@ -138,6 +175,9 @@ const formEditAsset = async (req, res) => {
     typeAssets,
     areas,
     buildings,
+    weightings,
+    states,
+    situations,
     data: asset
   });
 };
@@ -145,10 +185,15 @@ const formEditAsset = async (req, res) => {
 const editAsset = async (req, res) => {
   const resultError = validationResult(req);
   if (!resultError.isEmpty()) {
-    const [typeAssets, areas, buildings] = await Promise.all([ // Destructure the array of promises
+    const [typeAssets, areas, buildings, weightings, states, situations] = await Promise.all([ // Destructure the array of promises
       TypeAsset.findAll(),
       Area.findAll(),
-      Building.findAll()
+      Building.findAll(),
+      TypeAsset.findAll(),
+      Weighting.findAll(),
+      State.findAll(),
+      Situation.findAll()
+
     ]);
     res.render('assets/edit', {
       namePage: 'Editar Bien',
@@ -157,6 +202,9 @@ const editAsset = async (req, res) => {
       typeAssets,
       areas,
       buildings,
+      weightings,
+      states,
+      situations,
       data: req.body
     });
   }
@@ -173,16 +221,34 @@ const editAsset = async (req, res) => {
 
   try {
     const userId = req.user.id;
-    const { inventory, typeAsset: typeAssetId, area: areaId, building: buildingId, serial, status, description } = req.body;
+    const {
+      inventory,
+      surveyDate,
+      invoiceNumber,
+      serial,
+      description,
+      typeAsset: typeAssetId,
+      area: areaId,
+      building: buildingId,
+      weighting: weightingId,
+      state: stateId,
+      situation: situationId
+    } = req.body;
+
     asset.set(
       {
+
         inventory,
+        surveyDate,
+        invoiceNumber,
+        serial,
+        description,
         typeAssetId,
         areaId,
         buildingId,
-        serial,
-        status,
-        description,
+        weightingId,
+        stateId,
+        situationId,
         userId
       });
     await asset.save();
@@ -219,7 +285,10 @@ const formViewAsset = async (req, res) => {
       include: [
         { model: TypeAsset, attributes: ['name'] },
         { model: Area, attributes: ['name'] },
-        { model: Building, attributes: ['name'] }
+        { model: Building, attributes: ['name'] },
+        { model: Weighting, attributes: ['name'] },
+        { model: State, attributes: ['name'] },
+        { model: Situation, attributes: ['name'] }
       ]
     }
   );

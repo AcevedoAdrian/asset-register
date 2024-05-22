@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 
 import db from '../config/db.js';
 
-const Status = db.define('TypeAssets', {
+const State = db.define('States', {
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -19,4 +19,4 @@ const Status = db.define('TypeAssets', {
 
 });
 
-export default Status;
+export default State;

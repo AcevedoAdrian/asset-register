@@ -1,4 +1,4 @@
-const status = [
+const states = [
   {
     name: 'Muy Bueno'
   },
@@ -23,4 +23,4 @@ const status = [
 
 ];
 
-export default status;
+export default states;

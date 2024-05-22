@@ -1,13 +1,13 @@
 import { exit, argv } from 'node:process';
 
-import { Area, Asset, Building, TypeAsset, User, Situation, Status, Weighting } from '../models/index.js';
+import { Area, Asset, Building, TypeAsset, User, Situation, State, Weighting } from '../models/index.js';
 
 import area from './areas.js';
 import building from './buildings.js';
-import typeAsset from './typeassets.js';
+import typeAsset from './typeAssets.js';
 import user from './users.js';
 import situation from './situations.js';
-import status from './status.js';
+import states from './states.js';
 import weighting from './weightings.js';
 import db from '../config/db.js';
 
@@ -22,7 +22,7 @@ const importData = async () => {
       TypeAsset.bulkCreate(typeAsset),
       User.bulkCreate(user),
       Situation.bulkCreate(situation),
-      Status.bulkCreate(status),
+      State.bulkCreate(states),
       Weighting.bulkCreate(weighting)
     ]);
     exit();
