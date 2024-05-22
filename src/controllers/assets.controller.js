@@ -160,14 +160,20 @@ const formEditAsset = async (req, res) => {
     res.redirect('/assets/list');
   }
 
-  const [typeAssets, areas, buildings, weightings, states, situations] = await Promise.all([ // Destructure the array of promises
-    TypeAsset.findAll(),
+  const [
+    areas,
+    buildings,
+    situations,
+    states,
+    typeAssets,
+    weightings
+  ] = await Promise.all([ // Destructure the array of promises
     Area.findAll(),
     Building.findAll(),
-    Weighting.findAll(),
+    Situation.findAll(),
     State.findAll(),
-    Situation.findAll()
-
+    TypeAsset.findAll(),
+    Weighting.findAll()
   ]);
 
   res.render('assets/edit', {
@@ -185,15 +191,20 @@ const formEditAsset = async (req, res) => {
 const editAsset = async (req, res) => {
   const resultError = validationResult(req);
   if (!resultError.isEmpty()) {
-    const [typeAssets, areas, buildings, weightings, states, situations] = await Promise.all([ // Destructure the array of promises
-      TypeAsset.findAll(),
+    const [
+      areas,
+      buildings,
+      situations,
+      states,
+      typeAssets,
+      weightings
+    ] = await Promise.all([ // Destructure the array of promises
       Area.findAll(),
       Building.findAll(),
-      TypeAsset.findAll(),
-      Weighting.findAll(),
+      Situation.findAll(),
       State.findAll(),
-      Situation.findAll()
-
+      TypeAsset.findAll(),
+      Weighting.findAll()
     ]);
     res.render('assets/edit', {
       namePage: 'Editar Bien',
@@ -222,34 +233,33 @@ const editAsset = async (req, res) => {
   try {
     const userId = req.user.id;
     const {
-      inventory,
-      surveyDate,
-      invoiceNumber,
-      serial,
-      description,
-      typeAsset: typeAssetId,
       area: areaId,
       building: buildingId,
-      weighting: weightingId,
+      description,
+      inventory,
+      invoiceNumber,
+      serial,
+      situation: situationId,
       state: stateId,
-      situation: situationId
+      surveyDate,
+      typeAsset: typeAssetId,
+      weighting: weightingId
     } = req.body;
 
     asset.set(
       {
-
-        inventory,
-        surveyDate,
-        invoiceNumber,
-        serial,
-        description,
-        typeAssetId,
         areaId,
         buildingId,
-        weightingId,
-        stateId,
+        description,
+        inventory,
+        invoiceNumber,
+        serial,
         situationId,
-        userId
+        stateId,
+        surveyDate,
+        typeAssetId,
+        userId,
+        weightingId
       });
     await asset.save();
     res.redirect('/assets/list');
