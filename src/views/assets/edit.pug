@@ -2,15 +2,17 @@ extends ../layout/admin
 
 block container  
   div(class="my-10")
-    h2(class="text-center text-2xl font-extrabold ")= namePage
+
+    h2(class="text-center text-2xl font-extrabold")= namePage
+
     if errors && errors.length > 0
       div(class="max-w-md mx-auto my-10 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center") 
-        
+
         ul
           each error in errors
             li(class="font-bold uppercase")= error.msg   
 
-    div(class="bg-wite shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
+    div(class="bg-white shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
       form(
         method="POST"
         class="space-y-8"
@@ -22,18 +24,61 @@ block container
 
           //- Number de Inventory 
           div(class="form-group")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="inventory") Numero de Inventario
-              input(
-                id="inventory", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                placeholder="Ingresa el numero de inventario: ej. 1900355225",
-                type="number", 
-                name="inventory",
-                value= data.inventory ? data.inventory : '',
-                required
-              )
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="inventory") Numero de Inventario
+            input(
+              id="inventory", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa el numero de inventario: ej. 1900355225",
+              type="number", 
+              name="inventory",
+              value= data.inventory ? data.inventory : '',
+              required
+            )
+          //- Serial number 
+          div(class="form-group")
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="serial") Numero de Serie
+            input(
+              id="serial", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa el numero de serie: ej. 40002514511",
+              type="number", 
+              name="serial", 
+              value= data.serial ? data.serial : '',
+              required
+            )   
+          //- Invoice number
+          div(class="form-group")
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="invoiceNumber") Numero de Factura
+            input(
+              id="invoiceNumber", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa el numero de factura: ej. 40002514511",
+              type="number", 
+              name="invoiceNumber", 
+              value= data.invoiceNumber ? data.invoiceNumber : '',
+              required
+            )
+          //- Survey Date
+          div(class="form-group")
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="surveyDate") Fecha de Relevo
+            input(
+              id="surveyDate", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              type="date", 
+              name="surveyDate", 
+              value= data.surveyDate ? data.surveyDate : '',
+              required
+            )
+
+
           div(class="md:flex md:gap-4 space-x-5 space-y-0")
             //- Type de Asset
             div(class="form-group md:w-1/2")
@@ -51,25 +96,26 @@ block container
                       value=typeAsset.id 
                       selected= data.typeAssetId ? data.typeAssetId == typeAsset.id ? true : false : null
                     )= typeAsset.name
-            //- Status
+
+            //- State
             div(class="form-group md:w-1/2")
-                label(
-                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                  for="status") Estado
-                select(
-                  id="status", 
-                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                  name="status", 
-                  required
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="state") Estado
+              select(
+                id="state", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="state", 
+                required
                 )
-                  option(value="") - Selecciona el estado del bien -
-                  option(value="available"
-                    selected= data.status ? data.status == 'available' ? true : false : null
-                  ) Activo
-                  option(value="unavailable"
-                    selected= data.status ? data.status == 'unavailable' ? true : false : null
-                  ) Inactivo
-                  
+                option(value="") - Selecciona el Estado -
+                  each state in states
+                    option(
+                      value=state.id
+                      selected= data.stateId ? data.stateId == state.id ? true : false : null
+                    )= state.name 
+
+
           div(class="md:flex md:gap-4 space-x-5 space-y-0")
             //- Area
             div(class="form-group md:w-1/2")
@@ -103,43 +149,72 @@ block container
                       value=building.id
                       selected= data.buildingId ? data.buildingId == building.id ? true : false : null
                     )= building.name
-          //- Serial number 
-          div(class="form-group")
+                       
+          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+            //- Weighting
+            div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="serial") Numero de Serie
-              input(
-                id="serial", 
+                for="weighting") Ponderacion
+              select(
+                id="weighting", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                placeholder="Ingresa el numero de serie: ej. 40002514511",
-                type="number", 
-                name="serial", 
-                value= data.serial ? data.serial : '',
-                required
-              )              
+                name="weighting"
+                )
+                  option(value="") - Seleccione la Ponderacion-
+                    each weighting in weightings
+                      option(
+                        value=weighting.id
+                        selected= data.weightingId ? data.weightingId == weighting.id ? true : false : null
+                      )= weighting.name
+
+            //- Situation
+            div(class="form-group md:w-1/2")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="situation") Situacion
+              select(
+                id="situation", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="situation"
+                )
+                  option(value="") - Selecciona la Situacion del Bien -
+                    each situation in situations
+                      option(
+                        value=situation.id
+                        selected= data.situationId ? data.situationId == situation.id ? true : false : null
+                      )= situation.name
 
           //- Description
           div(class="form-group")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="description") Descripcion
-              textarea(
-                id="description", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                placeholder="Ingresa la descripcion del bien",
-                name="description",
-                required
-              )= data.description ? data.description : ''
-          //- Submit
-          input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Guardar Cambios")
-          button(
-            class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase",
-            type="button"
-            onClick=`deleteAsset("${data.id}")`
-            ) Eliminar Bien
-          
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="description") Descripcion
+            textarea(
+              id="description", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa la descripcion del bien",
+              name="description",
+              required
+            )= data.description ? data.description : ''
+            
+          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+            //- Submit
+            input( 
+              class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" type="submit"
+              value="Guardar ")
+            button(
+              class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase",
+              type="button"
+              onClick=`deleteAsset("${data.id}")`
+              ) Eliminar 
+            a( 
+              class="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase text-center" 
+              href="/assets/list"
+              )= "Regresar "
+
       //- form(action=`/assets/delete/${data.id}`, method="POST")
-      //-   input( class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Eliminar Bien")
+      //-   input( class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" type="submit" value="Eliminar Bien")
 
 block scripts
   script(src="/js/assets/delete.js")

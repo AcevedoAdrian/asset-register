@@ -1,4 +1,5 @@
 import { Asset, TypeAsset, Area, Building } from '../models/index.js';
+
 const homeController = async (req, res) => {
   const assets = await Asset.findAll(
     {
@@ -13,9 +14,8 @@ const homeController = async (req, res) => {
       ]
     });
   try {
-    res.render('home', {
-      namePage: 'Listado de activos',
-
+    res.render('home/index', {
+      namePage: 'Listado de Activoss',
       assets
     });
   } catch (error) {

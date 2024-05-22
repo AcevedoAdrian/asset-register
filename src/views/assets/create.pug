@@ -5,12 +5,12 @@ block container
     h2(class="text-center text-2xl font-extrabold ")= namePage
     if errors && errors.length > 0
       div(class="max-w-md mx-auto my-10 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center") 
-        
+
         ul
           each error in errors
             li(class="font-bold uppercase")= error.msg   
 
-    div(class="bg-wite shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
+    div(class="bg-white shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
       form(
         action="/assets/create" 
         method="POST"
@@ -23,60 +23,60 @@ block container
 
           //- Number de Inventory 
           div(class="form-group")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="inventory") Numero de Inventario
-              input(
-                id="inventory", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                placeholder="Ingresa el numero de inventario: ej. 1900355225",
-                type="number", 
-                name="inventory",
-                value= data.inventory ? data.inventory : '',
-                required
-              )
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="inventory") Numero de Inventario
+            input(
+              id="inventory", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa el numero de inventario: ej. 1900355225",
+              type="number", 
+              name="inventory",
+              value= data.inventory ? data.inventory : '',
+              required
+            )
           //- Serial number 
           div(class="form-group")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="serial") Numero de Serie
-              input(
-                id="serial", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                placeholder="Ingresa el numero de serie: ej. 40002514511",
-                type="number", 
-                name="serial", 
-                value= data.serial ? data.serial : '',
-                required
-              )   
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="serial") Numero de Serie
+            input(
+              id="serial", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa el numero de serie: ej. 40002514511",
+              type="number", 
+              name="serial", 
+              value= data.serial ? data.serial : '',
+              required
+            )   
           //- Invoice number
           div(class="form-group")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="invoiceNumber") Numero de Factura
-              input(
-                id="invoiceNumber", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                placeholder="Ingresa el numero de factura: ej. 40002514511",
-                type="number", 
-                name="invoiceNumber", 
-                value= data.invoiceNumber ? data.invoiceNumber : '',
-                required
-              )     
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="invoiceNumber") Numero de Factura
+            input(
+              id="invoiceNumber", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa el numero de factura: ej. 40002514511",
+              type="number", 
+              name="invoiceNumber", 
+              value= data.invoiceNumber ? data.invoiceNumber : '',
+              required
+            )     
           //- Survey Date
           div(class="form-group")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="surveyDate") Fecha de Relevo
-              input(
-                id="surveyDate", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                type="date", 
-                name="surveyDate", 
-                value= data.surveyDate ? data.surveyDate : '',
-                required
-              )  
-          
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="surveyDate") Fecha de Relevo
+            input(
+              id="surveyDate", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              type="date", 
+              name="surveyDate", 
+              value= data.surveyDate ? data.surveyDate : '',
+              required
+            )  
+
           div(class="md:flex md:gap-4 space-x-5 space-y-0")
             //- Type de Asset
             div(class="form-group md:w-1/2")
@@ -94,24 +94,24 @@ block container
                         value=typeAsset.id 
                         selected= data.typeAsset ? data.typeAsset == typeAsset.id ? true : false : null
                       )= typeAsset.name
-              //- State
+            //- State
             div(class="form-group md:w-1/2")
-                label(
-                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                  for="state") Estado
-                select(
-                  id="state", 
-                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                  name="state", 
-                  required
-                )
-                  option(value="") - Selecciona el Estado -
-                    each state in states
-                      option(
-                        value=state.id
-                        selected= data.state ? data.state == state.id ? true : false : null
-                      )= state.name
-                  
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="state") Estado
+              select(
+                id="state", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="state", 
+                required
+              )
+                option(value="") - Selecciona el Estado -
+                  each state in states
+                    option(
+                      value=state.id
+                      selected= data.state ? data.state == state.id ? true : false : null
+                    )= state.name
+
           div(class="md:flex md:gap-4 space-x-5 space-y-0")
             //- Area
             div(class="form-group md:w-1/2")
@@ -147,52 +147,61 @@ block container
                       )= building.name
 
           div(class="md:flex md:gap-4 space-x-5 space-y-0")
-              //- Weighting
-              div(class="form-group md:w-1/2")
-                label(
-                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                  for="weighting") Ponderacion
-                select(
-                  id="weighting", 
-                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                  name="weighting"
-                  )
-                    option(value="") - Seleccione la Ponderacion-
-                      each weighting in weightings
-                        option(
-                          value=weighting.id
-                          selected= data.weighting ? data.weighting == weighting.id ? true : false : null
-                        )= weighting.name
+            //- Weighting
+            div(class="form-group md:w-1/2")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="weighting") Ponderacion
+              select(
+                id="weighting", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="weighting"
+                )
+                  option(value="") - Seleccione la Ponderacion-
+                    each weighting in weightings
+                      option(
+                        value=weighting.id
+                        selected= data.weighting ? data.weighting == weighting.id ? true : false : null
+                      )= weighting.name
 
-              //- Situation
-              div(class="form-group md:w-1/2")
-                label(
-                  class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                  for="situation") Situacion
-                select(
-                  id="situation", 
-                  class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                  name="situation"
-                  )
-                    option(value="") - Selecciona la Situacion del Bien -
-                      each situation in situations
-                        option(
-                          value=situation.id
-                          selected= data.situation ? data.situation == situation.id ? true : false : null
-                        )= situation.name
-                    
+            //- Situation
+            div(class="form-group md:w-1/2")
+              label(
+                class="block text-sm uppercase text-gray-500 font-bold mb-2"
+                for="situation") Situacion
+              select(
+                id="situation", 
+                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+                name="situation"
+                )
+                  option(value="") - Selecciona la Situacion del Bien -
+                    each situation in situations
+                      option(
+                        value=situation.id
+                        selected= data.situation ? data.situation == situation.id ? true : false : null
+                      )= situation.name
+
 
           //- Description
           div(class="form-group")
-              label(
-                class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="description") Descripcion
-              textarea(
-                id="description", 
-                class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
-                placeholder="Ingresa la descripcion del bien",
-                name="description",
-                required
-              )= data.description ? data.description : ''
-          //- Submit
-          input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase", type="submit", value="Registrar Bien")
+            label(
+              class="block text-sm uppercase text-gray-500 font-bold mb-2"
+              for="description") Descripcion
+            textarea(
+              id="description", 
+              class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
+              placeholder="Ingresa la descripcion del bien",
+              name="description",
+              required
+            )= data.description ? data.description : ''
+
+
+          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+            //- Submit
+            input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" type="submit" value="Registrar Bien")
+
+            a( 
+              class="w-full bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase text-center" 
+              href="/assets/list"
+              )= "Regresar "
+

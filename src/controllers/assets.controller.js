@@ -117,7 +117,7 @@ const listAssets = async (req, res) => {
               { model: TypeAsset, attributes: ['name'] },
               { model: Area, attributes: ['name'] },
               { model: Building, attributes: ['name'] },
-              { model: Weighting, attributes: ['name'] },
+              { model: Weighting },
               { model: State, attributes: ['name'] },
               { model: Situation, attributes: ['name'] }
 
@@ -177,6 +177,7 @@ const formEditAsset = async (req, res) => {
   ]);
 
   res.render('assets/edit', {
+    namePage: 'Editar Bien',
     authenticated: true,
     typeAssets,
     areas,

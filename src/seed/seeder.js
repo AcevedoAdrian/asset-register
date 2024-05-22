@@ -4,7 +4,7 @@ import { Area, Asset, Building, TypeAsset, User, Situation, State, Weighting } f
 
 import area from './areas.js';
 import building from './buildings.js';
-import typeAsset from './typeAssets.js';
+import typeAsset from './typeassets.js';
 import user from './users.js';
 import situation from './situations.js';
 import states from './states.js';

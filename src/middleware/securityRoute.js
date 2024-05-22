@@ -3,7 +3,6 @@ import User from '../models/User.js';
 import config from '../config/config.js';
 
 const securityRoute = async (req, res, next) => {
-  console.log('Security Route Middleware');
   const { _token } = req.cookies;
   if (!_token) {
     return res.status(401).redirect('/auth/login');
