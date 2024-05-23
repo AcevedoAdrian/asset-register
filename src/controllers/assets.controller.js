@@ -17,7 +17,6 @@ const formCreateAsset = async (req, res) => {
     TypeAsset.findAll(),
     Weighting.findAll()
   ]);
-  console.log([typeAssets]);
 
   res.render('assets/create', {
     namePage: 'Registrar Bien',
@@ -66,7 +65,10 @@ const createAsset = async (req, res) => {
       data: req.body
     });
   }
-
+  console.log('-----------');
+  console.log(req.body.surveyDate);
+  console.log(req.body.surveyDate || new Date());
+  console.log('-----------');
   try {
     // Create a new asset
     const asset = await Asset.create({
@@ -78,7 +80,7 @@ const createAsset = async (req, res) => {
       serial: req.body.serial,
       situationId: req.body.situation,
       stateId: req.body.state,
-      surveyDate: req.body.surveyDate,
+      surveyDate: req.body.surveyDate || new Date(),
       typeAssetId: req.body.typeAsset,
       userId: req.user.id,
       weightingId: req.body.weighting

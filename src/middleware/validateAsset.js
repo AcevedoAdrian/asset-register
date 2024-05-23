@@ -12,6 +12,24 @@ const validateAsset = [
       }
     }),
 
+  body('serial')
+    .isNumeric().withMessage('Ingrese un Serial valido'),
+
+  body('invoiceNumber')
+    .isNumeric().withMessage('Ingrese un Numero de Factura valido'),
+
+  body('typeAsset')
+    .isNumeric().withMessage('Tipo de Bien invalido')
+    .notEmpty().withMessage('El Tipo de Bien es obligatorio'),
+
+  body('surveyDate')
+    .isDate(
+      {
+        format: 'DD/MM/YYYY',
+        strictMode: true
+      }).withMessage('La Fecha de Encuesta debe tener el formato YYYY-MM-DD')
+    .notEmpty().withMessage('El Tipo de Bien es obligatorio'),
+
   body('typeAsset')
     .isNumeric().withMessage('Selecciona un Tipo de Bien')
     .notEmpty().withMessage('El Tipo de Bien es obligatorio'),
@@ -20,7 +38,22 @@ const validateAsset = [
     .isNumeric().withMessage('Selecciona un Area de pertenencia')
     .notEmpty().withMessage('El Area es obligatoria'),
 
+  body('state')
+    .isNumeric().withMessage('Selecciona un Area de pertenencia')
+    .notEmpty().withMessage('El Area es obligatoria'),
+
   body('building')
+    .isNumeric().withMessage('Selecciona un Edificio')
+    .notEmpty().withMessage('El Edificio es obligatorio'),
+
+  body('weighting')
+    .isNumeric().withMessage('Selecciona un Area de pertenencia')
+    .notEmpty().withMessage('El Area es obligatoria'),
+  body('situation')
+    .isNumeric().withMessage('Selecciona un Area de pertenencia')
+    .notEmpty().withMessage('El Area es obligatoria'),
+
+  body('situation')
     .isNumeric().withMessage('Selecciona un Edificio')
     .notEmpty().withMessage('El Edificio es obligatorio'),
 

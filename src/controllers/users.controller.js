@@ -62,7 +62,6 @@ const authenticateUser = async (req, res) => {
 
   // Verify the password
   const validPassword = await user.comparePassword(password);
-  console.log(validPassword);
   if (!validPassword) {
     return res.status(400).render('auth/login',
       {
@@ -88,7 +87,7 @@ const authenticateUser = async (req, res) => {
     sameSite: false, // Pasar a true en produccion para proteger contra CSRF
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
     // maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  }).redirect('/admin');
+  }).redirect('/assets/list');
 };
 
 const formRegister = async (req, res) => {

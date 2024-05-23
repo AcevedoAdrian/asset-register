@@ -3,12 +3,7 @@ extends ../layout/admin
 block container  
   div(class="my-10")
     h2(class="text-center text-2xl font-extrabold ")= namePage
-    if errors && errors.length > 0
-      div(class="max-w-md mx-auto my-10 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center") 
-
-        ul
-          each error in errors
-            li(class="font-bold uppercase")= error.msg   
+    
 
     div(class="bg-white shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
       form(
@@ -26,6 +21,8 @@ block container
             label(
               class="block text-sm uppercase text-gray-500 font-bold mb-2"
               for="inventory") Numero de Inventario
+              //- Lista error de validacion
+            span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'inventory').map(error => `* ${error.msg} <br>`).join('') : ''
             input(
               id="inventory", 
               class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -40,6 +37,7 @@ block container
             label(
               class="block text-sm uppercase text-gray-500 font-bold mb-2"
               for="serial") Numero de Serie
+            span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'serial').map(error => `* ${error.msg} <br>`).join('') : ''
             input(
               id="serial", 
               class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -53,7 +51,8 @@ block container
           div(class="form-group")
             label(
               class="block text-sm uppercase text-gray-500 font-bold mb-2"
-              for="invoiceNumber") Numero de Factura
+              for="invoiceNumber") Numero de Factura 
+            span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'invoiceNumber').map(error => `* ${error.msg} <br>`).join('') : ''
             input(
               id="invoiceNumber", 
               class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -67,13 +66,14 @@ block container
           div(class="form-group")
             label(
               class="block text-sm uppercase text-gray-500 font-bold mb-2"
-              for="surveyDate") Fecha de Relevo
+              for="surveyDate") Fecha de Relevo 
+            span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'surveyDate').map(error => `* ${error.msg} <br>`).join('') : ''
             input(
               id="surveyDate", 
               class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
               type="date", 
               name="surveyDate", 
-              value= data.surveyDate ? data.surveyDate : '',
+              value= data.surveyDate ? data.surveyDate : new Date().toJSON().slice(0, 10).replace('T', ' '),
               required
             )  
 
@@ -82,7 +82,10 @@ block container
             div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="typeAsset") Tipo de Bien
+                for="typeAsset") Tipo de Bien 
+                span(class="text-red-500") *
+              span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'typeAsset').map(error => `* ${error.msg} <br>`).join('') : ''
+                
               select(
                 id="typeAsset", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -98,7 +101,9 @@ block container
             div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="state") Estado
+                for="state") Estado 
+                span(class="text-red-500") *
+              span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'state').map(error => `* ${error.msg} <br>`).join('') : ''
               select(
                 id="state", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -117,7 +122,9 @@ block container
             div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="area") Area
+                for="area") Area 
+                span(class="text-red-500") *
+              span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'area').map(error => `* ${error.msg} <br>`).join('') : ''
               select(
                 id="area", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -133,7 +140,9 @@ block container
             div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="building") Edificio
+                for="building") Edificio 
+                span(class="text-red-500") *
+              span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'building').map(error => `* ${error.msg} <br>`).join('') : ''
               select(
                 id="building", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -151,7 +160,9 @@ block container
             div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="weighting") Ponderacion
+                for="weighting") Ponderacion 
+                span(class="text-red-500") *
+              span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'weighting').map(error => `* ${error.msg} <br>`).join('') : ''
               select(
                 id="weighting", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -168,7 +179,9 @@ block container
             div(class="form-group md:w-1/2")
               label(
                 class="block text-sm uppercase text-gray-500 font-bold mb-2"
-                for="situation") Situacion
+                for="situation") Situacion 
+                span(class="text-red-500") *
+              span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'situation').map(error => `* ${error.msg} <br>`).join('') : ''
               select(
                 id="situation", 
                 class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -187,6 +200,7 @@ block container
             label(
               class="block text-sm uppercase text-gray-500 font-bold mb-2"
               for="description") Descripcion
+            span(class="text-red-500 text-xs")!= errors && errors.length > 0 ? errors.filter(error => error.path == 'description').map(error => `* ${error.msg} <br>`).join('') : ''
             textarea(
               id="description", 
               class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
@@ -201,7 +215,7 @@ block container
             input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" type="submit" value="Registrar Bien")
 
             a( 
-              class="w-full bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase text-center" 
+              class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase text-center" 
               href="/assets/list"
               )= "Regresar "
 

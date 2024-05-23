@@ -15,7 +15,9 @@ const Asset = db.define('Assets', {
   },
   surveyDate: {
     type: DataTypes.DATE,
-    allowNull: false
+    format: 'DD/MM/YYYY',
+    allowNull: false,
+    defaultValue: DataTypes.NOW
   },
   invoiceNumber: {
     type: DataTypes.STRING,
