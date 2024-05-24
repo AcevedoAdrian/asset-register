@@ -3,8 +3,8 @@ extends ../layout/admin
 block container  
   div(class="my-10")
     h2(class="text-center text-2xl font-extrabold ")= namePage
-    
-
+    pre= new Date().toJSON().slice(0, 10).replace('T', ' ')
+    pre= data.surveyDate
     div(class="bg-white shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
       form(
         action="/assets/create" 

@@ -69,6 +69,9 @@ const createAsset = async (req, res) => {
   console.log(req.body.surveyDate);
   console.log(req.body.surveyDate || new Date());
   console.log('-----------');
+
+  const surveyDate = req.body.surveyDate.toJSON().slice(0, 10).replace('T', ' ') || new Date().toJSON().slice(0, 10).replace('T', ' ');
+
   try {
     // Create a new asset
     const asset = await Asset.create({
@@ -80,7 +83,7 @@ const createAsset = async (req, res) => {
       serial: req.body.serial,
       situationId: req.body.situation,
       stateId: req.body.state,
-      surveyDate: req.body.surveyDate || new Date(),
+      surveyDate,
       typeAssetId: req.body.typeAsset,
       userId: req.user.id,
       weightingId: req.body.weighting

@@ -18,16 +18,8 @@ const validateAsset = [
   body('invoiceNumber')
     .isNumeric().withMessage('Ingrese un Numero de Factura valido'),
 
-  body('typeAsset')
-    .isNumeric().withMessage('Tipo de Bien invalido')
-    .notEmpty().withMessage('El Tipo de Bien es obligatorio'),
-
   body('surveyDate')
-    .isDate(
-      {
-        format: 'DD/MM/YYYY',
-        strictMode: true
-      }).withMessage('La Fecha de Encuesta debe tener el formato YYYY-MM-DD')
+    .isISO8601().withMessage('Date must be in the format yyyy-mm-dd')
     .notEmpty().withMessage('El Tipo de Bien es obligatorio'),
 
   body('typeAsset')
@@ -39,7 +31,7 @@ const validateAsset = [
     .notEmpty().withMessage('El Area es obligatoria'),
 
   body('state')
-    .isNumeric().withMessage('Selecciona un Area de pertenencia')
+    .isNumeric().withMessage('Selecciona un Estado de pertenencia')
     .notEmpty().withMessage('El Area es obligatoria'),
 
   body('building')
@@ -47,19 +39,12 @@ const validateAsset = [
     .notEmpty().withMessage('El Edificio es obligatorio'),
 
   body('weighting')
-    .isNumeric().withMessage('Selecciona un Area de pertenencia')
-    .notEmpty().withMessage('El Area es obligatoria'),
-  body('situation')
-    .isNumeric().withMessage('Selecciona un Area de pertenencia')
+    .isNumeric().withMessage('Selecciona un Ponderacion de pertenencia')
     .notEmpty().withMessage('El Area es obligatoria'),
 
   body('situation')
-    .isNumeric().withMessage('Selecciona un Edificio')
-    .notEmpty().withMessage('El Edificio es obligatorio'),
-
-  body('serial')
-    .isNumeric().withMessage('El Serial debe ser un numero')
-    .notEmpty().withMessage('El Serial es obligatorio'),
+    .isNumeric().withMessage('Selecciona un Situacion de pertenencia')
+    .notEmpty().withMessage('El Area es obligatoria'),
 
   body('description')
     .isLength({ max: 100 }).withMessage('La Descripcion debe tener como maximo 100 caracteres')
