@@ -65,12 +65,8 @@ const createAsset = async (req, res) => {
       data: req.body
     });
   }
-  console.log('-----------');
-  console.log(req.body.surveyDate);
-  console.log(req.body.surveyDate || new Date());
-  console.log('-----------');
 
-  const surveyDate = req.body.surveyDate.toJSON().slice(0, 10).replace('T', ' ') || new Date().toJSON().slice(0, 10).replace('T', ' ');
+  const surveyDate = req.body.surveyDate.slice(0, 10).replace('T', '') || new Date().toJSON().slice(0, 10).replace('T', ' ');
 
   try {
     // Create a new asset

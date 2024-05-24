@@ -6,10 +6,13 @@ html(lang="es")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Registro de Bienes | #{namePage}
     link(rel="stylesheet", href="/css/app.css")
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css")
+    script(src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js")
   body(class=" min-h-screen bg-gray-50 text-gray-900")
     if authenticated
       include header/admin
     
     main(class="mx-auto container mt-10 px-2")
+      block style
       block container
       block scripts

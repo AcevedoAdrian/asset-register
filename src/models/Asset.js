@@ -6,7 +6,6 @@ const Asset = db.define('Assets', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
-    allowNull: false,
     primaryKey: true
   },
   inventory: {
@@ -20,7 +19,7 @@ const Asset = db.define('Assets', {
   },
   invoiceNumber: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: true
   },
   serial: {
     type: DataTypes.STRING,
