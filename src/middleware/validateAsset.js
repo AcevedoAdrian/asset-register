@@ -4,18 +4,28 @@ const validateAsset = [
   body('inventory')
     .isNumeric().withMessage('El Numero de Inventario debe ser un numero')
     .withMessage('El Numero de Inventario es obligatorio')
-    .custom(async value => {
+    .custom(async (value, { req }) => {
+      // preguntar si el numero de inventario ya existe y es igual el id
+
       const inventory = await Asset.findOne({ where: { inventory: value } });
-      if (inventory) {
+      if (inventory && (!req.body.id || inventory.id !== Number(req.body.id))) {
         // Will use the below as the error message
         throw new Error('El Numero de Inventario ya existe');
       }
     }),
   body('serial')
-    .optional()
+    .optional({
+      nullable: true,
+      checkFalsy: true
+    })
     .isNumeric().withMessage('Ingrese un Serial valido'),
   body('invoiceNumber')
-    .optional()
+    .optional(
+      {
+        nullable: true,
+        checkFalsy: true
+      }
+    )
     .isNumeric().withMessage('Ingrese un Numero de Factura valido'),
 
   body('surveyDate')
@@ -31,7 +41,10 @@ const validateAsset = [
     .notEmpty().withMessage('El Area es obligatoria'),
 
   body('state')
-    .optional()
+    .optional({
+      nullable: true,
+      checkFalsy: true
+    })
     .isNumeric().withMessage('Selecciona un Estado de pertenencia'),
 
   body('building')
@@ -45,7 +58,10 @@ const validateAsset = [
     .isNumeric().withMessage('Selecciona un Situacion de pertenencia'),
 
   body('description')
-    .optional()
+    .optional({
+      nullable: true,
+      checkFalsy: true
+    })
     .isLength({ max: 100 }).withMessage('La Descripcion debe tener como maximo 100 caracteres')
 
 ];

@@ -5,8 +5,8 @@ block container
 
     h2(class="text-center text-2xl font-extrabold")= namePage
 
-
-
+    //- Cortar la fecha para que se muestre en el input de fecha de relevo 
+    pre= data.surveyDate ? data.surveyDate : 'Hola Mundo'
     div(class="bg-white shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
       form(
         method="POST"
@@ -77,7 +77,6 @@ block container
               class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
               type="date", 
               name="surveyDate", 
-              //- parcear la fecha para que se muestre en el input
               value= data.surveyDate ? data.surveyDate : new Date()
               required
             )

@@ -13,7 +13,7 @@ const Asset = db.define('Assets', {
     allowNull: false
   },
   surveyDate: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATE(6),
     allowNull: false,
     defaultValue: DataTypes.NOW
   },

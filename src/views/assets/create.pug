@@ -72,7 +72,7 @@ block container
               class="form-control w-full py-2 px-3  border border-gray-300 rounded-lg mb-2 placeholder-gray-500",
               type="date", 
               name="surveyDate", 
-              value= data.surveyDate ? data.surveyDate : new Date().toJSON().slice(0, 10).replace('T', ' '),
+              value= data.surveyDate ? data.surveyDate.slice(0,10) : new Date().toJSON().slice(0, 10).replace('T', ' '),
               required
             )  
 
