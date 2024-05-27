@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { validationResult } from 'express-validator';
 import { TypeAsset, Area, Building, Asset, User, Weighting, State, Situation } from '../models/index.js';
 // Form for creating a new asset (GET)
@@ -67,6 +68,7 @@ const createAsset = async (req, res) => {
   }
 
   const surveyDate = req.body.surveyDate.slice(0, 10).replace('T', '') || new Date().toJSON().slice(0, 10).replace('T', ' ');
+  const stateId = req.body.state || 1;
 
   try {
     // Create a new asset
@@ -78,7 +80,7 @@ const createAsset = async (req, res) => {
       invoiceNumber: req.body.invoiceNumber,
       serial: req.body.serial,
       situationId: req.body.situation,
-      stateId: req.body.state,
+      stateId,
       surveyDate,
       typeAssetId: req.body.typeAsset,
       userId: req.user.id,
@@ -93,7 +95,6 @@ const createAsset = async (req, res) => {
 
 const listAssets = async (req, res) => {
   const { page } = req.query;
-  console.log(req.query.page);
   const regularExpressionPaginate = /^[0-9]+$/; // Regular expression to validate that the page is a number greater than 0 and not a string or other type of data type that is not a number or integer
 
   if (!regularExpressionPaginate.test(page)) {
@@ -160,6 +161,7 @@ const formEditAsset = async (req, res) => {
   if (asset.userId.toString() !== req.user.id.toString()) {
     res.redirect('/assets/list');
   }
+  const data = { inventory: asset.inventory, invoiceNumber: asset.invoiceNumber, serial: asset.serial, surveyDate: asset.surveyDate, description: asset.description, area: asset.areaId, building: asset.buildingId, situation: asset.situationId, state: asset.stateId, typeAsset: asset.typeAssetId, weighting: asset.weightingId };
 
   const [
     areas,
@@ -186,12 +188,16 @@ const formEditAsset = async (req, res) => {
     weightings,
     states,
     situations,
-    data: asset
+    data
   });
 };
 
 const editAsset = async (req, res) => {
+  const { id } = req.params;
+
+  console.log(req.body);
   const resultError = validationResult(req);
+
   if (!resultError.isEmpty()) {
     const [
       areas,
@@ -208,6 +214,7 @@ const editAsset = async (req, res) => {
       TypeAsset.findAll(),
       Weighting.findAll()
     ]);
+
     res.render('assets/edit', {
       namePage: 'Editar Bien',
       errors: resultError.array(),
@@ -222,12 +229,10 @@ const editAsset = async (req, res) => {
     });
   }
 
-  const { id } = req.params;
   const asset = await Asset.findByPk(id);
   if (!asset) {
     res.redirect('/assets/list');
   }
-
   if (asset.userId.toString() !== req.user.id.toString()) {
     res.redirect('/assets/list');
   }
@@ -235,36 +240,38 @@ const editAsset = async (req, res) => {
   try {
     const userId = req.user.id;
     const {
-      area: areaId,
-      building: buildingId,
+      area,
+      salchichometro,
+      building,
       description,
       inventory,
       invoiceNumber,
       serial,
-      situation: situationId,
-      state: stateId,
+      situation,
+      state,
       surveyDate,
-      typeAsset: typeAssetId,
-      weighting: weightingId
+      typeAsset,
+      weighting
     } = req.body;
 
     asset.set(
       {
-        areaId,
-        buildingId,
+        area,
+        building,
         description,
         inventory,
         invoiceNumber,
         serial,
-        situationId,
-        stateId,
+        situation,
+        state,
         surveyDate,
-        typeAssetId,
+        typeAsset,
         userId,
-        weightingId
+        weighting
       });
     await asset.save();
-    res.redirect('/assets/list');
+
+    return res.redirect('/assets/list');
   } catch (error) {
     console.log(error);
   }

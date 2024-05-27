@@ -2,11 +2,9 @@ extends ../layout/admin
 
 block container  
   div(class="my-10")
-
+ 
     h2(class="text-center text-2xl font-extrabold")= namePage
-
-    //- Cortar la fecha para que se muestre en el input de fecha de relevo 
-    pre= data.surveyDate ? data.surveyDate : 'Hola Mundo'
+   
     div(class="bg-white shadow py-8 px-4 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
       form(
         method="POST"
@@ -102,7 +100,7 @@ block container
                   each typeAsset in typeAssets
                     option(
                       value=typeAsset.id 
-                      selected= data.typeAssetId ? data.typeAssetId == typeAsset.id ? true : false : null
+                      selected= data.typeAsset ? data.typeAsset == typeAsset.id ? true : false : null
                     )= typeAsset.name
 
             //- State
@@ -123,7 +121,7 @@ block container
                   each state in states
                     option(
                       value=state.id
-                      selected= data.stateId ? data.stateId == state.id ? true : false : null
+                      selected= data.state ? data.state == state.id ? true : false : null
                     )= state.name 
 
 
@@ -145,7 +143,7 @@ block container
                   each area in areas
                     option(
                       value=area.id
-                      selected= data.areaId ? data.areaId == area.id ? true : false : null
+                      selected= data.area ? data.area == area.id ? true : false : null
                     )= area.name
             //- Location
             div(class="form-group md:w-1/2")
@@ -164,7 +162,7 @@ block container
                   each building in buildings
                     option(
                       value=building.id
-                      selected= data.buildingId ? data.buildingId == building.id ? true : false : null
+                      selected= data.building ? data.building == building.id ? true : false : null
                     )= building.name
 
           div(class="md:flex md:gap-4 space-x-5 space-y-0")
@@ -184,7 +182,7 @@ block container
                     each weighting in weightings
                       option(
                         value=weighting.id
-                        selected= data.weightingId ? data.weightingId == weighting.id ? true : false : null
+                        selected= data.weighting ? data.weighting == weighting.id ? true : false : null
                       )= weighting.name
 
             //- Situation
@@ -203,7 +201,7 @@ block container
                     each situation in situations
                       option(
                         value=situation.id
-                        selected= data.situationId ? data.situationId == situation.id ? true : false : null
+                        selected= data.situation ? data.situation == situation.id ? true : false : null
                       )= situation.name
 
           //- Description

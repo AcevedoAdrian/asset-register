@@ -12,7 +12,7 @@ Asset.belongsTo(Building, { foreignKey: 'buildingId' }, { defaultValue: 1 });
 Asset.belongsTo(TypeAsset, { foreignKey: 'typeAssetId' }, { defaultValue: 1 });
 Asset.belongsTo(User, { foreignKey: 'userId' });
 Asset.belongsTo(Situation, { foreignKey: 'situationId' }, { defaultValue: 1 });
-Asset.belongsTo(State, { foreignKey: 'stateId' }, { allowNull: false });
+Asset.belongsTo(State, { foreignKey: 'stateId' }, { defaultValue: 1 });
 Asset.belongsTo(Weighting, { foreignKey: 'weightingId' }, { defaultValue: 1 });
 
 export { Area, Asset, Building, TypeAsset, User, Situation, State, Weighting };

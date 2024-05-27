@@ -3,7 +3,7 @@ async function deleteAsset (idAsset) {
     try {
       console.log({ idAsset });
       const res = await fetch(`/assets/delete/${idAsset}`, {
-        method: 'PUT'
+        method: 'DELETE'
       });
       const result = await res.json();
       if (result.status === 200) {
