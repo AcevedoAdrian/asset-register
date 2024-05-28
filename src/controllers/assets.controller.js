@@ -161,7 +161,20 @@ const formEditAsset = async (req, res) => {
   if (asset.userId.toString() !== req.user.id.toString()) {
     res.redirect('/assets/list');
   }
-  const data = { inventory: asset.inventory, invoiceNumber: asset.invoiceNumber, serial: asset.serial, surveyDate: asset.surveyDate, description: asset.description, area: asset.areaId, building: asset.buildingId, situation: asset.situationId, state: asset.stateId, typeAsset: asset.typeAssetId, weighting: asset.weightingId };
+  const data = {
+    id: asset.id,
+    inventory: asset.inventory,
+    invoiceNumber: asset.invoiceNumber,
+    serial: asset.serial,
+    surveyDate: asset.surveyDate.toJSON().slice(0, 10).replace('T', ' '),
+    description: asset.description,
+    area: asset.areaId,
+    building: asset.buildingId,
+    situation: asset.situationId,
+    state: asset.stateId,
+    typeAsset: asset.typeAssetId,
+    weighting: asset.weightingId
+  };
 
   const [
     areas,
@@ -241,7 +254,6 @@ const editAsset = async (req, res) => {
     const userId = req.user.id;
     const {
       area,
-      salchichometro,
       building,
       description,
       inventory,

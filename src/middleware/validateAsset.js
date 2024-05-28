@@ -8,7 +8,7 @@ const validateAsset = [
       // preguntar si el numero de inventario ya existe y es igual el id
 
       const inventory = await Asset.findOne({ where: { inventory: value } });
-      if (inventory && (!req.body.id || inventory.id !== Number(req.body.id))) {
+      if (inventory && (!req.params.id || inventory.id !== req.params.id)) {
         // Will use the below as the error message
         throw new Error('El Numero de Inventario ya existe');
       }
