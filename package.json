@@ -10,6 +10,7 @@
     "devnodemon": "nodemon --watch src --exec node --env-file=.env src/app.js",
     "css": "postcss src/public/css/tailwind.css -o src/public/css/app.css --watch",
     "db:imported": "node --env-file=.env ./src/seed/seeder.js -i ",
+    "db:importedAsset": "node --env-file=.env ./src/seed/seeder.js -a ",
     "db:deleted": "node --env-file=.env ./src/seed/seeder.js -d "
   },
   "author": "Acevedo Adrian",
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "bcrypt": "5.1.1",
+    "choices.js": "10.2.0",
     "cookie-parser": "1.4.6",
     "express": "4.19.2",
     "express-validator": "7.0.1",

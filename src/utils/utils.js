@@ -6,6 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export const publicPath = path.join(__dirname, '../public');
+export const publicPathChoices = path.join(__dirname, '../node_modules/choices.js/public');
 
 const salt = await bcrypt.genSalt(10);
 export const hashPassword = async (password) => {

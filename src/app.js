@@ -3,7 +3,7 @@ import { cookie } from 'express-validator';
 import cookieParser from 'cookie-parser';
 
 import db from './config/db.js';
-import { publicPath } from './utils/utils.js';
+import { publicPath, publicPathChoices } from './utils/utils.js';
 import config from './config/config.js';
 import homeRouter from './routes/home.routes.js';
 import usersRouter from './routes/users.routes.js';
@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie(config.COOKIE_SECRET));
 app.use(cookieParser(config.cookiePrivateKey));
-
+app.use('/choices', express.static(publicPathChoices));
 // Enable PUG
 app.set('view engine', 'pug');
 app.set('views', './src/views');

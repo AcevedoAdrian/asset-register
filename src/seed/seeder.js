@@ -9,6 +9,7 @@ import user from './users.js';
 import situation from './situations.js';
 import states from './states.js';
 import weighting from './weightings.js';
+import assets from './assets.js';
 import db from '../config/db.js';
 
 const importData = async () => {
@@ -24,6 +25,21 @@ const importData = async () => {
       Situation.bulkCreate(situation),
       State.bulkCreate(states),
       Weighting.bulkCreate(weighting)
+    ]);
+    exit();
+  } catch (error) {
+    console.error(error);
+    exit(1); // Force exit with error
+  }
+};
+
+const importAsset = async () => {
+  try {
+    await db.authenticate();
+    await db.sync();
+
+    await Promise.all([
+      Asset.bulkCreate(assets)
     ]);
     exit();
   } catch (error) {
@@ -49,6 +65,11 @@ const deleteData = async () => {
     exit(1); // Force exit with error
   }
 };
+if (argv[2] === '-a') {
+  console.log('Importing Asset');
+  importAsset();
+}
+
 if (argv[2] === '-i') {
   console.log('Importing Data');
   importData();
