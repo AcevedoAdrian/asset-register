@@ -208,7 +208,6 @@ const formEditAsset = async (req, res) => {
 const editAsset = async (req, res) => {
   const { id } = req.params;
 
-  console.log(req.body);
   const resultError = validationResult(req);
 
   if (!resultError.isEmpty()) {
@@ -243,14 +242,17 @@ const editAsset = async (req, res) => {
   }
 
   const asset = await Asset.findByPk(id);
+  console.log('!asset');
   if (!asset) {
     res.redirect('/assets/list');
   }
+  console.log('Userid');
   if (asset.userId.toString() !== req.user.id.toString()) {
     res.redirect('/assets/list');
   }
-
+  console.log('try');
   try {
+    console.log(asset);
     const userId = req.user.id;
     const {
       area,
@@ -268,19 +270,20 @@ const editAsset = async (req, res) => {
 
     asset.set(
       {
-        area,
-        building,
+        areaId: area,
+        buildingId: building,
         description,
         inventory,
         invoiceNumber,
         serial,
         situation,
-        state,
+        stateId: state,
         surveyDate,
-        typeAsset,
+        typeAssetId: typeAsset,
         userId,
-        weighting
+        weightingId: weighting
       });
+
     await asset.save();
 
     return res.redirect('/assets/list');
@@ -302,8 +305,7 @@ const deleteAsset = async (req, res) => {
   try {
     asset.active = 1;
     await asset.save();
-    // return res.redirect('/assets/list');
-    return res.status(200).json({ status: 200, message: 'Bien eliminado con éxito' });
+    return res.redirect('/assets/list');
   } catch (error) {
     console.log(error);
   }

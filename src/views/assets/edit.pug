@@ -79,7 +79,7 @@ block container
             )
 
 
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+          div(class="md:flex md:gap-4 md:space-x-5 space-y-0")
             //- Type de Asset
             div(class="form-group md:w-1/2")
               label(
@@ -124,7 +124,7 @@ block container
                     )= state.name 
 
 
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+          div(class="md:flex md:gap-4 md:space-x-5 md:space-y-0")
             //- Area
             div(class="form-group md:w-1/2")
               label(
@@ -164,7 +164,7 @@ block container
                       selected= data.building ? data.building == building.id ? true : false : null
                     )= building.name
 
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+          div(class="md:flex md:gap-4 md:space-x-5 md:space-y-0")
             //- Weighting
             div(class="form-group md:w-1/2")
               label(
@@ -219,23 +219,59 @@ block container
               required
             )= data.description ? data.description : ''
 
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+          div(class="md:flex md:gap-4 md:space-x-5 md:space-y-0 ")
             //- Submit
-            input( 
+            div(class="md:w-1/3 flex flex-col")
+              input( 
               class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" type="submit"
+              onClick="return confirm('¿Estás seguro de guardar los cambios?')"
               value="Guardar ")
-            button(
+
+            //- Delete
+            div(class="md:w-1/3 flex flex-col py-3 md:py-0")
+              button(
               class="w-full bg-gray-100 hover:bg-gray-200 text-red-600 border border-gray-200 font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase",
               type="button"
               onClick=`deleteAsset("${data.id}")`
               ) Eliminar 
-            a( 
+            //- Regresar
+            div(class="md:w-1/3 flex flex-col ")
+              a( 
               class="w-full bg-gray-500 hover:bg-gray-600 border text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase text-center" 
               href="/assets/list"
               )= "Regresar "
+              
+      //- form(action=`/assets/delete/${data.id}`, method="POST")
+      //-         input(
+      //-            class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" 
+      //-            type="submit" 
+      //-            onClick="return confirm('¿Estás seguro de eliminar el bien?')"
+      //-            value="Eliminar Bien")
+
+
 
       //- form(action=`/assets/delete/${data.id}`, method="POST")
       //-   input( class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" type="submit" value="Eliminar Bien")
 
 block scripts
   script(src="/js/assets/delete.js")
+  script(src="/js/choices.js")
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+
+//- onClick=`
+                event.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Metele Si!'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      // Aquí va tu código para guardar los cambios
+                      document.getElementById('myForm').submit();
+                    }
+                  })
+                `

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   dropdowns.forEach((dropdownId) => {
     const element = document.getElementById(dropdownId);
     const choices = new Choices(element, {
+      allowHTML: false,
       noResultsText: 'No se encontró un resultado con ese nombre'
     });
   });

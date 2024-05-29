@@ -76,7 +76,7 @@ block container
               required
             )  
 
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+          div(class="md:flex md:gap-4  md:space-x-5  md:space-y-0")
             //- Type de Asset
             div(class="form-group md:w-1/2")
               label(
@@ -116,7 +116,7 @@ block container
                       selected= data.state ? data.state == state.id ? true : false : null
                     )= state.name
 
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+          div(class="md:flex md:gap-4  md:space-x-5  md:space-y-0")
             //- Area
             div(class="form-group md:w-1/2")
               label(
@@ -154,7 +154,7 @@ block container
                         selected= data.building ? data.building == building.id ? true : false : null
                       )= building.name
 
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+          div(class="md:flex md:gap-4  md:space-x-5  md:space-y-0")
             //- Weighting
             div(class="form-group md:w-1/2")
               label(
@@ -209,14 +209,16 @@ block container
             )= data.description ? data.description : ''
 
 
-          div(class="md:flex md:gap-4 space-x-5 space-y-0")
+          div(class="md:flex md:gap-4 md:space-x-5 md:space-y-0")
             //- Submit
-            input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" type="submit" value="Registrar Bien")
-
-            a( 
+            div(class="md:w-1/2 flex flex-col")
+              input( class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase" type="submit" value="Registrar Bien")
+            //- Regresar
+            div(class="md:w-1/2 flex flex-col xs:py-5 md:py-0")
+              a( 
               class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg  cursor-pointer uppercase text-center" 
               href="/assets/list"
               )= "Regresar "
 
 block scripts
-  script(src="/js/select2.js")
+  script(src="/js/choices.js")

@@ -1,5 +1,5 @@
 async function deleteAsset (idAsset) {
-  if (confirm('Desear eliminar este Bien?')) {
+  if (confirm('Desear quitar tu vida a Esteban?')) {
     try {
       console.log({ idAsset });
       const res = await fetch(`/assets/delete/${idAsset}`, {
