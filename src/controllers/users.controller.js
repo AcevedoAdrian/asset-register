@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import config from '../config/config.js';
 import { check, validationResult } from 'express-validator';
 import { jwtToken, generateToken } from '../helpers/tokens.js';
 import { emailRegister, emailForgetPassword } from '../helpers/email.js';
@@ -81,7 +82,7 @@ const authenticateUser = async (req, res) => {
     email: user.email
   });
   // Save the token in the cookie
-  res.cookie('_token', token, {
+  res.cookie(config.JWT_NAME_COOKIE, token, {
     httpOnly: true,
     secure: false, // Pasar a true en produccion para use https
     sameSite: false, // Pasar a true en produccion para proteger contra CSRF
@@ -270,6 +271,7 @@ const confirmToken = async (req, res) => {
     token
   });
 };
+
 const resetPassword = async (req, res) => {
   // validation password
   await check('password').isLength({ min: 6 }).withMessage('La constrasena debe ser al menos de 6 caracteres').run(req);
@@ -310,6 +312,10 @@ const resetPassword = async (req, res) => {
   });
 };
 
+const logoutUser = async (req, res) => {
+  res.clearCookie(config.JWT_NAME_COOKIE).redirect('/auth/login');
+};
+
 export {
   formLogin,
   authenticateUser,
@@ -319,5 +325,6 @@ export {
   confirmUser,
   forgetPassword,
   confirmToken,
-  resetPassword
+  resetPassword,
+  logoutUser
 };

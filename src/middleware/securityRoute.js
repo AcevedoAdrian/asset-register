@@ -13,11 +13,11 @@ const securityRoute = async (req, res, next) => {
     if (user) {
       req.user = user;
     } else {
-      return res.clearCookie('_token').redirect('/auth/login');
+      return res.clearCookie(config.JWT_NAME_COOKIE).redirect('/auth/login');
     }
     return next();
   } catch (error) {
-    return res.clearCookie('_token').redirect('/auth/login');
+    return res.clearCookie(config.JWT_NAME_COOKIE).redirect('/auth/login');
   }
 };
 

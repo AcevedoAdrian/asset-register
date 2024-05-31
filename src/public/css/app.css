@@ -659,6 +659,9 @@ video {
 .gap-8 {
   gap: 2rem;
 }
+.gap-4 {
+  gap: 1rem;
+}
 .space-x-5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(1.25rem * var(--tw-space-x-reverse));
@@ -962,6 +965,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
 .placeholder-gray-500::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(107 114 128 / var(--tw-placeholder-opacity));
@@ -1141,6 +1148,10 @@ video {
 
   .md\:flex {
     display: flex;
+  }
+
+  .md\:table-cell {
+    display: table-cell;
   }
 
   .md\:hidden {

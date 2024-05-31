@@ -32,7 +32,6 @@ const formCreateAsset = async (req, res) => {
     data: {}
   });
 };
-
 // Create a new asset (POST)
 const createAsset = async (req, res) => {
   const resultError = validationResult(req);
@@ -339,6 +338,8 @@ const formViewAsset = async (req, res) => {
     data: asset
   });
 };
+
+const searchAsset = async (req, res) => {};
 
 export {
   formCreateAsset,

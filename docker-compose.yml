@@ -1,5 +1,20 @@
 version: '3.8'
 services:
+  # Node.js
+  
+  # Nginx
+  # nginx:
+  #   image: nginx:latest
+  #   container_name: my_nginx
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./nginx/conf.d:/etc/nginx/conf.d
+  #     - ./nginx/html:/usr/share/nginx/html
+  #   restart: always
+  #   networks:
+  #     - my_network
+  # MariaDB
   mariadb:
     image: mariadb:latest
     container_name: my_mariadb
