@@ -28,7 +28,7 @@ app.use(express.static(publicPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie(config.COOKIE_SECRET));
-app.use(cookieParser(config.cookiePrivateKey));
+app.use(cookieParser(config.COOKIE_SECRET));
 app.use('/choices', express.static(publicPathChoices));
 // Enable PUG
 app.set('view engine', 'pug');
@@ -39,6 +39,13 @@ app.use('/home', homeRouter);
 app.use('/admin', securityRoute, adminRouter);
 app.use('/auth', usersRouter);
 app.use('/assets', securityRoute, assetsRouter);
+app.use((req, res) => {
+  res.status(404).render("layout/error", {
+    status: "error",
+    code: 404,
+    message: "Pagina no encontrada",
+  });
+});
 
 app.listen(config.PORT, () => {
   console.log(`Server is listening on port ${config.PORT}`);

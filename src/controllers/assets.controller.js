@@ -135,15 +135,32 @@ const listAssets = async (req, res) => {
 
     const pages = Math.ceil(totalAsset / limit);
 
-    res.render('assets/list', {
-      namePage: 'Listado de Bienes',
+    const [areas, buildings, situations, states, typeAssets, weightings] =
+      await Promise.all([
+        // Destructure the array of promises
+        Area.findAll(),
+        Building.findAll(),
+        Situation.findAll(),
+        State.findAll(),
+        TypeAsset.findAll(),
+        Weighting.findAll(),
+      ]);
+
+    res.render("assets/list", {
+      namePage: "Listado de Bienes",
       authenticated: true,
       assets,
       pages,
       page: Number(page),
       totalAsset,
       limit,
-      offset
+      offset,
+      areas,
+      buildings,
+      situations,
+      states,
+      typeAssets,
+      weightings,
     });
   } catch (error) {
     console.log(error);
@@ -241,17 +258,13 @@ const editAsset = async (req, res) => {
   }
 
   const asset = await Asset.findByPk(id);
-  console.log('!asset');
   if (!asset) {
-    res.redirect('/assets/list');
+    res.redirect("/assets/list");
   }
-  console.log('Userid');
   if (asset.userId.toString() !== req.user.id.toString()) {
-    res.redirect('/assets/list');
+    res.redirect("/assets/list");
   }
-  console.log('try');
   try {
-    console.log(asset);
     const userId = req.user.id;
     const {
       area,
@@ -264,28 +277,27 @@ const editAsset = async (req, res) => {
       state,
       surveyDate,
       typeAsset,
-      weighting
+      weighting,
     } = req.body;
 
-    asset.set(
-      {
-        areaId: area,
-        buildingId: building,
-        description,
-        inventory,
-        invoiceNumber,
-        serial,
-        situation,
-        stateId: state,
-        surveyDate,
-        typeAssetId: typeAsset,
-        userId,
-        weightingId: weighting
-      });
+    asset.set({
+      areaId: area,
+      buildingId: building,
+      description,
+      inventory,
+      invoiceNumber,
+      serial,
+      situationId: situation,
+      stateId: state,
+      surveyDate,
+      typeAssetId: typeAsset,
+      userId,
+      weightingId: weighting,
+    });
 
     await asset.save();
 
-    return res.redirect('/assets/list');
+    return res.redirect("/assets/list");
   } catch (error) {
     console.log(error);
   }

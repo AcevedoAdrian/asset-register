@@ -25,5 +25,5 @@ router.get('/forget-password', redirectIfAuthenticated, securityRouter, formForg
 router.post('/forget-password', securityRouter, forgetPassword);
 router.get('/forget-password/:token', redirectIfAuthenticated, confirmToken);
 router.post('/forget-password/:token', resetPassword);
-router.get('/logout', logoutUser);
+router.post("/logout", logoutUser);
 export default router;

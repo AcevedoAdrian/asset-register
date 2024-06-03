@@ -1,0 +1,16 @@
+div(class="flex flex-col md:flex-row items-center py-10 gap-4")
+  h2(class="text-sm uppercase text-gray-800 font-bold  ") Filtrar Por:
+  //- pre= JSON.stringify(typeAssets, null, 2)
+  div(class="w-full md:w-auto flex items-center gap-2")
+    label(for="typeAssets" class="text-sm w-24 uppercase text-gray-500 font-bold") Tipo de Bien
+    select(id="typeAssets" class="flex-1 bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow" )
+     option(value="") - Seleccione -
+      each typeAsset in typeAssets
+        option(value=typeAsset.id )= typeAsset.name
+
+  div(class="w-full md:w-auto flex items-center gap-2")
+    label(for="areas" class="text-sm w-24 uppercase text-gray-500 font-bold") Area
+    select(id="areas" class="flex-1 bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow" )
+      option(value="") - Seleccione -
+      each area in areas
+        option(value=area.id )= area.name

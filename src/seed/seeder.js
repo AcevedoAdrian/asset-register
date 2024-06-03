@@ -11,6 +11,8 @@ import states from './states.js';
 import weighting from './weightings.js';
 import assets from './assets.js';
 import db from '../config/db.js';
+import Role from "../models/Role.js";
+import roles from "./roles.js";
 
 const importData = async () => {
   try {
@@ -24,7 +26,8 @@ const importData = async () => {
       User.bulkCreate(user),
       Situation.bulkCreate(situation),
       State.bulkCreate(states),
-      Weighting.bulkCreate(weighting)
+      Weighting.bulkCreate(weighting),
+      Role.bulkCreate(roles),
     ]);
     exit();
   } catch (error) {
@@ -65,6 +68,7 @@ const deleteData = async () => {
     exit(1); // Force exit with error
   }
 };
+
 if (argv[2] === '-a') {
   console.log('Importing Asset');
   importAsset();

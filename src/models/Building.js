@@ -18,4 +18,5 @@ const Building = db.define('Buildings', {
   }
 });
 
+
 export default Building;

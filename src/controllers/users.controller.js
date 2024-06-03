@@ -82,13 +82,16 @@ const authenticateUser = async (req, res) => {
     email: user.email
   });
   // Save the token in the cookie
-  res.cookie(config.JWT_NAME_COOKIE, token, {
-    httpOnly: true,
-    secure: false, // Pasar a true en produccion para use https
-    sameSite: false, // Pasar a true en produccion para proteger contra CSRF
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
-    // maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  }).redirect('/assets/list');
+  res
+    .cookie(config.JWT_NAME_COOKIE, token, {
+      httpOnly: true,
+      secure: false, // Pasar a true en produccion para use https
+      sameSite: false, // Pasar a true en produccion para proteger contra CSRF
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+      // maxAge: 24 * 60 * 60 * 1000 // 24 hours
+      signed: true,
+    })
+    .redirect("/assets/list");
 };
 
 const formRegister = async (req, res) => {
@@ -313,7 +316,10 @@ const resetPassword = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-  res.clearCookie(config.JWT_NAME_COOKIE).redirect('/auth/login');
+  return res
+    .clearCookie(config.JWT_NAME_COOKIE)
+    .status(200)
+    .redirect("/auth/login");
 };
 
 export {

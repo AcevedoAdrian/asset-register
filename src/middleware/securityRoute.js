@@ -3,7 +3,7 @@ import User from '../models/User.js';
 import config from '../config/config.js';
 
 const securityRoute = async (req, res, next) => {
-  const { _token } = req.cookies;
+  const { _token } = req.signedCookies;
   if (!_token) {
     return res.status(401).redirect('/auth/login');
   }
