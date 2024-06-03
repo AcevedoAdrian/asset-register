@@ -26,7 +26,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mariadb_data:${MYSQL_DATA_PATH}
+      - ./mariadb_data:${MYSQL_DATA_PATH}
     restart: always
     networks:
       - my_network
