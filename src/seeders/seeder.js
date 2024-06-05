@@ -1,16 +1,25 @@
-import { exit, argv } from 'node:process';
+import { exit, argv } from "node:process";
 
-import { Area, Asset, Building, TypeAsset, User, Situation, State, Weighting } from '../models/index.js';
+import {
+  Area,
+  Asset,
+  Building,
+  TypeAsset,
+  User,
+  Situation,
+  State,
+  Weighting,
+} from "../models/index.js";
 
-import area from './areas.js';
-import building from './buildings.js';
-import typeAsset from './typeassets.js';
-import user from './users.js';
-import situation from './situations.js';
-import states from './states.js';
-import weighting from './weightings.js';
-import assets from './assets.js';
-import db from '../config/db.js';
+import area from "./areas.js";
+import building from "./buildings.js";
+import typeAsset from "./typeassets.js";
+import user from "./users.js";
+import situation from "./situations.js";
+import states from "./states.js";
+import weighting from "./weightings.js";
+import assets from "./assets.js";
+import db from "../db/db.js";
 import Role from "../models/Role.js";
 import roles from "./roles.js";
 
@@ -41,9 +50,7 @@ const importAsset = async () => {
     await db.authenticate();
     await db.sync();
 
-    await Promise.all([
-      Asset.bulkCreate(assets)
-    ]);
+    await Promise.all([Asset.bulkCreate(assets)]);
     exit();
   } catch (error) {
     console.error(error);
@@ -61,7 +68,7 @@ const deleteData = async () => {
     //   TypeAsset.destroy({ where: {}, truncate: true, force: true })
     // ]);
     await db.sync({ force: true }); // Force sync to reset autoincrement
-    console.log('Data Deleted Successfully');
+    console.log("Data Deleted Successfully");
     exit();
   } catch (error) {
     console.error(error);
@@ -69,16 +76,16 @@ const deleteData = async () => {
   }
 };
 
-if (argv[2] === '-a') {
-  console.log('Importing Asset');
+if (argv[2] === "-a") {
+  console.log("Importing Asset");
   importAsset();
 }
 
-if (argv[2] === '-i') {
-  console.log('Importing Data');
+if (argv[2] === "-i") {
+  console.log("Importing Data");
   importData();
 }
-if (argv[2] === '-d') {
-  console.log('Deleting Data');
+if (argv[2] === "-d") {
+  console.log("Deleting Data");
   deleteData();
 }

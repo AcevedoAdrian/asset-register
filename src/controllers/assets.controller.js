@@ -93,6 +93,8 @@ const createAsset = async (req, res) => {
 };
 
 const listAssets = async (req, res) => {
+  const query = req.query;
+  console.log(query);
   const { page } = req.query;
   const regularExpressionPaginate = /^[0-9]+$/; // Regular expression to validate that the page is a number greater than 0 and not a string or other type of data type that is not a number or integer
 
@@ -104,34 +106,30 @@ const listAssets = async (req, res) => {
     // Calculate the number of assets to display per page
     // const offset = ((page * limit) - limit);
     const offset = (page - 1) * limit;
-    const [assets, totalAsset] = await Promise.all(
-      [
+    const [assets, totalAsset] = await Promise.all([
       // Find all the assets that are not active
-        Asset.findAll(
-          {
-            limit,
-            offset,
-            where: {
-              active: 0
-            },
-            include: [
-              { model: TypeAsset, attributes: ['name'] },
-              { model: Area, attributes: ['name'] },
-              { model: Building, attributes: ['name'] },
-              { model: Weighting },
-              { model: State, attributes: ['name'] },
-              { model: Situation, attributes: ['name'] }
+      Asset.findAll({
+        limit,
+        offset,
+        where: {
+          active: true
+        },
+        include: [
+          { model: TypeAsset, attributes: ['name'] },
+          { model: Area, attributes: ['name'] },
+          { model: Building, attributes: ['name'] },
+          { model: Weighting },
+          { model: State, attributes: ['name'] },
+          { model: Situation, attributes: ['name'] }
+        ]
+      }),
 
-            ]
-          }),
-
-        Asset.count({
-          where: {
-            active: 0
-          }
-        })
-      ]
-    );
+      Asset.count({
+        where: {
+          active: true
+        }
+      })
+    ]);
 
     const pages = Math.ceil(totalAsset / limit);
 
@@ -143,11 +141,11 @@ const listAssets = async (req, res) => {
         Situation.findAll(),
         State.findAll(),
         TypeAsset.findAll(),
-        Weighting.findAll(),
+        Weighting.findAll()
       ]);
 
-    res.render("assets/list", {
-      namePage: "Listado de Bienes",
+    res.render('assets/list', {
+      namePage: 'Listado de Bienes',
       authenticated: true,
       assets,
       pages,
@@ -160,7 +158,7 @@ const listAssets = async (req, res) => {
       situations,
       states,
       typeAssets,
-      weightings,
+      weightings
     });
   } catch (error) {
     console.log(error);
@@ -259,10 +257,10 @@ const editAsset = async (req, res) => {
 
   const asset = await Asset.findByPk(id);
   if (!asset) {
-    res.redirect("/assets/list");
+    res.redirect('/assets/list');
   }
   if (asset.userId.toString() !== req.user.id.toString()) {
-    res.redirect("/assets/list");
+    res.redirect('/assets/list');
   }
   try {
     const userId = req.user.id;
@@ -277,7 +275,7 @@ const editAsset = async (req, res) => {
       state,
       surveyDate,
       typeAsset,
-      weighting,
+      weighting
     } = req.body;
 
     asset.set({
@@ -292,12 +290,12 @@ const editAsset = async (req, res) => {
       surveyDate,
       typeAssetId: typeAsset,
       userId,
-      weightingId: weighting,
+      weightingId: weighting
     });
 
     await asset.save();
 
-    return res.redirect("/assets/list");
+    return res.redirect('/assets/list');
   } catch (error) {
     console.log(error);
   }
@@ -314,11 +312,19 @@ const deleteAsset = async (req, res) => {
     res.redirect('/assets/list');
   }
   try {
-    asset.active = 1;
-    await asset.save();
-    return res.redirect('/assets/list');
+    asset.active = false;
+    const resDB = await asset.save();
+    return res.json({
+      message: 'Se elimino correctamente el bien',
+      data: resDB,
+      status: 200
+    });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      message: 'Error deleting the asset',
+      status: 500
+    });
   }
 };
 
@@ -353,6 +359,85 @@ const formViewAsset = async (req, res) => {
 
 const searchAsset = async (req, res) => {};
 
+const searchListAssets = async (req, res) => {
+  console.log('Hola soy searchListAssets');
+  const { page, inventory } = req.query;
+  const regularExpressionPaginate = /^[0-9]+$/; // Regular expression to validate that the page is a number greater than 0 and not a string or other type of data type that is not a number or integer
+
+  if (!regularExpressionPaginate.test(page)) {
+    return res.redirect('/assets/list?page=1');
+  }
+  if (!regularExpressionPaginate.test(inventory)) {
+    return res.redirect('/assets/list?page=1');
+  }
+  try {
+    const limit = 5;
+    // Calculate the number of assets to display per page
+    // const offset = ((page * limit) - limit);
+    const offset = (page - 1) * limit;
+    const [assets, totalAsset] = await Promise.all([
+      // Find all the assets that are not active
+      Asset.findAll({
+        limit,
+        offset,
+        where: {
+          [Op.or]: [
+            { active: true },
+            { inventory: { [Op.like]: `%${inventory}%` } }
+          ]
+        },
+        include: [
+          { model: TypeAsset, attributes: ['name'] },
+          { model: Area, attributes: ['name'] },
+          { model: Building, attributes: ['name'] },
+          { model: Weighting },
+          { model: State, attributes: ['name'] },
+          { model: Situation, attributes: ['name'] }
+        ]
+      }),
+
+      Asset.count({
+        where: {
+          active: true
+        }
+      })
+    ]);
+
+    console.log('search');
+
+    const pages = Math.ceil(totalAsset / limit);
+
+    const [areas, buildings, situations, states, typeAssets, weightings] =
+      await Promise.all([
+        // Destructure the array of promises
+        Area.findAll(),
+        Building.findAll(),
+        Situation.findAll(),
+        State.findAll(),
+        TypeAsset.findAll(),
+        Weighting.findAll()
+      ]);
+
+    res.render('assets/list', {
+      namePage: 'Listado de Bienes',
+      authenticated: true,
+      assets,
+      pages,
+      page: Number(page),
+      totalAsset,
+      limit,
+      offset,
+      areas,
+      buildings,
+      situations,
+      states,
+      typeAssets,
+      weightings
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 export {
   formCreateAsset,
   createAsset,
@@ -360,5 +445,6 @@ export {
   formEditAsset,
   editAsset,
   deleteAsset,
-  formViewAsset
+  formViewAsset,
+  searchListAssets
 };

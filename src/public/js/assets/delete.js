@@ -6,7 +6,11 @@ async function deleteAsset (idAsset) {
         method: 'DELETE'
       });
       const result = await res.json();
+      console.log(result);
       if (result.status === 200) {
+        alert(result.message);
+        window.location.href = '/assets/list';
+      } else {
         alert(result.message);
         window.location.href = '/assets/list';
       }

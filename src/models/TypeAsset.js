@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 
-import db from '../config/db.js';
+import db from "../db/db.js";
 
 const TypeAsset = db.define('TypeAssets', {
   name: {

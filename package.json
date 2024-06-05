@@ -9,9 +9,9 @@
     "dev": "node --watch  --env-file=.env .",
     "devnodemon": "nodemon --watch src --exec node --env-file=.env src/app.js",
     "css": "postcss src/public/css/tailwind.css -o src/public/css/app.css --watch",
-    "db:imported": "node --env-file=.env ./src/seed/seeder.js -i ",
-    "db:importedAsset": "node --env-file=.env ./src/seed/seeder.js -a ",
-    "db:deleted": "node --env-file=.env ./src/seed/seeder.js -d "
+    "db:imported": "node --env-file=.env ./src/seeders/seeder.js -i ",
+    "db:importedAsset": "node --env-file=.env ./src/seeders/seeder.js -a ",
+    "db:deleted": "node --env-file=.env ./src/seeders/seeder.js -d "
   },
   "author": "Acevedo Adrian",
   "license": "ISC",
@@ -32,6 +32,8 @@
     "jsonwebtoken": "9.0.2",
     "mariadb": "3.3.0",
     "nodemailer": "6.9.13",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
     "pug": "3.0.2",
     "sequelize": "6.37.3"
   },

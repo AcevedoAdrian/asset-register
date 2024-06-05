@@ -196,8 +196,8 @@ const confirmUser = async (req, res) => {
   }
   // confirm the user
   user.token = null;
-  user.confirmed = 1;
-  user.active = 1;
+  user.confirmed = false;
+  user.active = false;
   await user.save();
   return res.render('auth/confirm-user', {
     authenticated: false,

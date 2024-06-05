@@ -2,7 +2,7 @@ import express from 'express';
 import { cookie } from 'express-validator';
 import cookieParser from 'cookie-parser';
 
-import db from './config/db.js';
+import db from "./db/db.js";
 import { publicPath, publicPathChoices } from './utils/utils.js';
 import config from './config/config.js';
 import homeRouter from './routes/home.routes.js';
