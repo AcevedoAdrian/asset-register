@@ -1,23 +1,28 @@
 /* eslint-disable no-unused-vars */
 import { validationResult } from 'express-validator';
-import { TypeAsset, Area, Building, Asset, User, Weighting, State, Situation } from '../models/index.js';
+import {
+  TypeAsset,
+  Area,
+  Building,
+  Asset,
+  User,
+  Weighting,
+  State,
+  Situation
+} from '../models/index.js';
+import { Op } from 'sequelize';
 // Form for creating a new asset (GET)
 const formCreateAsset = async (req, res) => {
-  const [
-    areas,
-    buildings,
-    situations,
-    states,
-    typeAssets,
-    weightings
-  ] = await Promise.all([ // Destructure the array of promises
-    Area.findAll(),
-    Building.findAll(),
-    Situation.findAll(),
-    State.findAll(),
-    TypeAsset.findAll(),
-    Weighting.findAll()
-  ]);
+  const [areas, buildings, situations, states, typeAssets, weightings] =
+    await Promise.all([
+      // Destructure the array of promises
+      Area.findAll(),
+      Building.findAll(),
+      Situation.findAll(),
+      State.findAll(),
+      TypeAsset.findAll(),
+      Weighting.findAll()
+    ]);
 
   res.render('assets/create', {
     namePage: 'Registrar Bien',
@@ -36,21 +41,16 @@ const formCreateAsset = async (req, res) => {
 const createAsset = async (req, res) => {
   const resultError = validationResult(req);
   if (!resultError.isEmpty()) {
-    const [
-      areas,
-      buildings,
-      situations,
-      states,
-      typeAssets,
-      weightings
-    ] = await Promise.all([ // Destructure the array of promises
-      Area.findAll(),
-      Building.findAll(),
-      Situation.findAll(),
-      State.findAll(),
-      TypeAsset.findAll(),
-      Weighting.findAll()
-    ]);
+    const [areas, buildings, situations, states, typeAssets, weightings] =
+      await Promise.all([
+        // Destructure the array of promises
+        Area.findAll(),
+        Building.findAll(),
+        Situation.findAll(),
+        State.findAll(),
+        TypeAsset.findAll(),
+        Weighting.findAll()
+      ]);
     // If there are errors, the form is displayed again with the error messages
     return res.render('assets/create', {
       namePage: 'Registrar Bien',
@@ -66,7 +66,9 @@ const createAsset = async (req, res) => {
     });
   }
 
-  const surveyDate = req.body.surveyDate.slice(0, 10).replace('T', '') || new Date().toJSON().slice(0, 10).replace('T', ' ');
+  const surveyDate =
+    req.body.surveyDate.slice(0, 10).replace('T', '') ||
+    new Date().toJSON().slice(0, 10).replace('T', ' ');
   const stateId = req.body.state || 1;
 
   try {
@@ -93,8 +95,6 @@ const createAsset = async (req, res) => {
 };
 
 const listAssets = async (req, res) => {
-  const query = req.query;
-  console.log(query);
   const { page } = req.query;
   const regularExpressionPaginate = /^[0-9]+$/; // Regular expression to validate that the page is a number greater than 0 and not a string or other type of data type that is not a number or integer
 
@@ -106,6 +106,7 @@ const listAssets = async (req, res) => {
     // Calculate the number of assets to display per page
     // const offset = ((page * limit) - limit);
     const offset = (page - 1) * limit;
+
     const [assets, totalAsset] = await Promise.all([
       // Find all the assets that are not active
       Asset.findAll({
@@ -190,21 +191,16 @@ const formEditAsset = async (req, res) => {
     weighting: asset.weightingId
   };
 
-  const [
-    areas,
-    buildings,
-    situations,
-    states,
-    typeAssets,
-    weightings
-  ] = await Promise.all([ // Destructure the array of promises
-    Area.findAll(),
-    Building.findAll(),
-    Situation.findAll(),
-    State.findAll(),
-    TypeAsset.findAll(),
-    Weighting.findAll()
-  ]);
+  const [areas, buildings, situations, states, typeAssets, weightings] =
+    await Promise.all([
+      // Destructure the array of promises
+      Area.findAll(),
+      Building.findAll(),
+      Situation.findAll(),
+      State.findAll(),
+      TypeAsset.findAll(),
+      Weighting.findAll()
+    ]);
 
   res.render('assets/edit', {
     namePage: 'Editar Bien',
@@ -225,21 +221,16 @@ const editAsset = async (req, res) => {
   const resultError = validationResult(req);
 
   if (!resultError.isEmpty()) {
-    const [
-      areas,
-      buildings,
-      situations,
-      states,
-      typeAssets,
-      weightings
-    ] = await Promise.all([ // Destructure the array of promises
-      Area.findAll(),
-      Building.findAll(),
-      Situation.findAll(),
-      State.findAll(),
-      TypeAsset.findAll(),
-      Weighting.findAll()
-    ]);
+    const [areas, buildings, situations, states, typeAssets, weightings] =
+      await Promise.all([
+        // Destructure the array of promises
+        Area.findAll(),
+        Building.findAll(),
+        Situation.findAll(),
+        State.findAll(),
+        TypeAsset.findAll(),
+        Weighting.findAll()
+      ]);
 
     res.render('assets/edit', {
       namePage: 'Editar Bien',
@@ -330,18 +321,16 @@ const deleteAsset = async (req, res) => {
 
 const formViewAsset = async (req, res) => {
   const { id } = req.params;
-  const asset = await Asset.findByPk(id,
-    {
-      include: [
-        { model: TypeAsset, attributes: ['name'] },
-        { model: Area, attributes: ['name'] },
-        { model: Building, attributes: ['name'] },
-        { model: Weighting, attributes: ['name'] },
-        { model: State, attributes: ['name'] },
-        { model: Situation, attributes: ['name'] }
-      ]
-    }
-  );
+  const asset = await Asset.findByPk(id, {
+    include: [
+      { model: TypeAsset, attributes: ['name'] },
+      { model: Area, attributes: ['name'] },
+      { model: Building, attributes: ['name'] },
+      { model: Weighting, attributes: ['name'] },
+      { model: State, attributes: ['name'] },
+      { model: Situation, attributes: ['name'] }
+    ]
+  });
   if (!asset) {
     res.redirect('/404');
   }
@@ -359,16 +348,14 @@ const formViewAsset = async (req, res) => {
 
 const searchAsset = async (req, res) => {};
 
-const searchListAssets = async (req, res) => {
+const searchAssets = async (req, res) => {
   console.log('Hola soy searchListAssets');
-  const { page, inventory } = req.query;
+  console.log(req.query);
+  const { page, inventorySearch } = req.query;
   const regularExpressionPaginate = /^[0-9]+$/; // Regular expression to validate that the page is a number greater than 0 and not a string or other type of data type that is not a number or integer
 
   if (!regularExpressionPaginate.test(page)) {
-    return res.redirect('/assets/list?page=1');
-  }
-  if (!regularExpressionPaginate.test(inventory)) {
-    return res.redirect('/assets/list?page=1');
+    return res.redirect('/assets/search?page=1');
   }
   try {
     const limit = 5;
@@ -381,9 +368,9 @@ const searchListAssets = async (req, res) => {
         limit,
         offset,
         where: {
-          [Op.or]: [
+          [Op.and]: [
             { active: true },
-            { inventory: { [Op.like]: `%${inventory}%` } }
+            { inventory: { [Op.eq]: `${inventorySearch}` } }
           ]
         },
         include: [
@@ -418,7 +405,7 @@ const searchListAssets = async (req, res) => {
         Weighting.findAll()
       ]);
 
-    res.render('assets/list', {
+    res.render('assets/search', {
       namePage: 'Listado de Bienes',
       authenticated: true,
       assets,
@@ -446,5 +433,5 @@ export {
   editAsset,
   deleteAsset,
   formViewAsset,
-  searchListAssets
+  searchAssets
 };
