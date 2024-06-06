@@ -1,5 +1,5 @@
-import Sequelize from "sequelize";
-import config from "../config/config.js";
+import Sequelize from 'sequelize';
+import config from '../config/config.js';
 
 const db = new Sequelize(
   config.DB.database,
@@ -13,7 +13,7 @@ const db = new Sequelize(
     // Configuración de la base de datos
     define: {
       // Crea los campos "createdAt" y "updatedAt"
-      timestamps: true,
+      timestamps: true
     },
     // // Configuración del pool de conexiones a la base de datos
     // pool: {
@@ -27,7 +27,7 @@ const db = new Sequelize(
     //   idle: 10000,
     // },
     // Deshabilita la impresión de las consultas SQL
-    logging: true,
+    logging: false
   }
 );
 
