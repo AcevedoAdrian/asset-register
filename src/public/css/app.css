@@ -665,6 +665,11 @@ video {
 .cursor-pointer {
   cursor: pointer;
 }
+.appearance-none {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
 .flex-row {
   flex-direction: row;
 }
@@ -961,6 +966,9 @@ video {
 .leading-6 {
   line-height: 1.5rem;
 }
+.leading-tight {
+  line-height: 1.25;
+}
 .text-emerald-200 {
   --tw-text-opacity: 1;
   color: rgb(167 243 208 / var(--tw-text-opacity));
@@ -1135,6 +1143,10 @@ video {
 .focus\:text-cyan-500:focus {
   --tw-text-opacity: 1;
   color: rgb(6 182 212 / var(--tw-text-opacity));
+}
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 @media (min-width: 640px) {
 
