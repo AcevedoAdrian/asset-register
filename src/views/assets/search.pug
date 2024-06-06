@@ -4,7 +4,7 @@ block container
   div(class="my-10")
     
     h2(class="text-center text-2xl font-extrabold ")= namePage
-    //- include ../search/assets
+    include ../search/assets
     
 
     div(class="flex justify-end  border-gray-200 mt-5 mb-1 gap-2")
@@ -18,14 +18,7 @@ block container
         svg( width="20" height="20" fill="currentColor" class="mr-2" aria-hidden="true")
           path(d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z")
         |Nuevo AC
-    form(method="GET" action="/assets/search")
-      input(
-        type="text" 
-        name="inventorySearch" 
-        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-        value= inventorySearch ? inventorySearch : ''
-        placeholder="Buscar por número de inventario" )
-      button(type="submit") Buscar
+    
   
     if assets.length
       

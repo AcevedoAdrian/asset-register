@@ -8,8 +8,8 @@ import {
   formEditAsset,
   deleteAsset,
   formViewAsset,
-  searchAssets,
-} from "../controllers/assets.controller.js";
+  searchAsset
+} from '../controllers/assets.controller.js';
 
 const router = express.Router();
 
@@ -20,6 +20,6 @@ router.get('/edit/:id', formEditAsset);
 router.post('/edit/:id', validateAsset, editAsset);
 router.delete('/delete/:id', deleteAsset);
 router.get('/view/:id', formViewAsset);
-router.get("/search", searchAssets);
+router.get('/search', searchAsset);
 
 export default router;

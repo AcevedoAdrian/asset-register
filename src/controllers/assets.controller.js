@@ -346,85 +346,11 @@ const formViewAsset = async (req, res) => {
   });
 };
 
-const searchAsset = async (req, res) => {};
-
-const searchAssets = async (req, res) => {
+const searchAsset = async (req, res) => {
   console.log('Hola soy searchListAssets');
-  console.log(req.query);
-  const { page, inventorySearch } = req.query;
-  const regularExpressionPaginate = /^[0-9]+$/; // Regular expression to validate that the page is a number greater than 0 and not a string or other type of data type that is not a number or integer
-
-  if (!regularExpressionPaginate.test(page)) {
-    return res.redirect('/assets/search?page=1');
-  }
-  try {
-    const limit = 5;
-    // Calculate the number of assets to display per page
-    // const offset = ((page * limit) - limit);
-    const offset = (page - 1) * limit;
-    const [assets, totalAsset] = await Promise.all([
-      // Find all the assets that are not active
-      Asset.findAll({
-        limit,
-        offset,
-        where: {
-          [Op.and]: [
-            { active: true },
-            { inventory: { [Op.eq]: `${inventorySearch}` } }
-          ]
-        },
-        include: [
-          { model: TypeAsset, attributes: ['name'] },
-          { model: Area, attributes: ['name'] },
-          { model: Building, attributes: ['name'] },
-          { model: Weighting },
-          { model: State, attributes: ['name'] },
-          { model: Situation, attributes: ['name'] }
-        ]
-      }),
-
-      Asset.count({
-        where: {
-          active: true
-        }
-      })
-    ]);
-
-    console.log('search');
-
-    const pages = Math.ceil(totalAsset / limit);
-
-    const [areas, buildings, situations, states, typeAssets, weightings] =
-      await Promise.all([
-        // Destructure the array of promises
-        Area.findAll(),
-        Building.findAll(),
-        Situation.findAll(),
-        State.findAll(),
-        TypeAsset.findAll(),
-        Weighting.findAll()
-      ]);
-
-    res.render('assets/search', {
-      namePage: 'Listado de Bienes',
-      authenticated: true,
-      assets,
-      pages,
-      page: Number(page),
-      totalAsset,
-      limit,
-      offset,
-      areas,
-      buildings,
-      situations,
-      states,
-      typeAssets,
-      weightings
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  const { inventory } = req.query;
 };
+
 export {
   formCreateAsset,
   createAsset,
@@ -433,5 +359,5 @@ export {
   editAsset,
   deleteAsset,
   formViewAsset,
-  searchAssets
+  searchAsset
 };

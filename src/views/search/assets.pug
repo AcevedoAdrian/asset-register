@@ -1,16 +1,27 @@
 div(class="flex flex-col md:flex-row items-center py-10 gap-4")
   h2(class="text-sm uppercase text-gray-800 font-bold  ") Filtrar Por:
-  //- pre= JSON.stringify(typeAssets, null, 2)
-  div(class="w-full md:w-auto flex items-center gap-2")
-    label(for="typeAssets" class="text-sm w-24 uppercase text-gray-500 font-bold") Tipo de Bien
-    select(id="typeAssets" class="flex-1 bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow" )
-     option(value="") - Seleccione -
-      each typeAsset in typeAssets
-        option(value=typeAsset.id )= typeAsset.name
+    form(method="GET" action="/assets/search")
 
-  div(class="w-full md:w-auto flex items-center gap-2")
-    label(for="areas" class="text-sm w-24 uppercase text-gray-500 font-bold") Area
-    select(id="areas" class="flex-1 bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow" )
-      option(value="") - Seleccione -
-      each area in areas
-        option(value=area.id )= area.name
+    div(class="w-full md:w-auto flex items-center gap-2")
+      label(for="typeAssets" class="text-sm w-24 uppercase text-gray-500 font-bold") Numero de Inventario
+      input(
+        type="text" 
+        name="inventorySearch" 
+        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+        value= inventorySearch ? inventorySearch : ''
+        placeholder="Buscar por número de inventario" )
+      button(type="submit") Buscar
+  //- pre= JSON.stringify(typeAssets, null, 2)
+  //- div(class="w-full md:w-auto flex items-center gap-2")
+  //-   label(for="typeAssets" class="text-sm w-24 uppercase text-gray-500 font-bold") Tipo de Bien
+  //-   select(id="typeAssets" class="flex-1 bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow" )
+  //-    option(value="") - Seleccione -
+  //-     each typeAsset in typeAssets
+  //-       option(value=typeAsset.id )= typeAsset.name
+
+  //- div(class="w-full md:w-auto flex items-center gap-2")
+  //-   label(for="areas" class="text-sm w-24 uppercase text-gray-500 font-bold") Area
+  //-   select(id="areas" class="flex-1 bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow" )
+  //-     option(value="") - Seleccione -
+  //-     each area in areas
+  //-       option(value=area.id )= area.name

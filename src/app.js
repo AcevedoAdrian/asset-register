@@ -1,8 +1,9 @@
 import express from 'express';
 import { cookie } from 'express-validator';
 import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 
-import db from "./db/db.js";
+import db from './db/db.js';
 import { publicPath, publicPathChoices } from './utils/utils.js';
 import config from './config/config.js';
 import homeRouter from './routes/home.routes.js';
@@ -25,6 +26,8 @@ try {
 // Static files
 app.use(express.static(publicPath));
 
+app.use(morgan('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie(config.COOKIE_SECRET));
@@ -40,10 +43,10 @@ app.use('/admin', securityRoute, adminRouter);
 app.use('/auth', usersRouter);
 app.use('/assets', securityRoute, assetsRouter);
 app.use((req, res) => {
-  res.status(404).render("layout/error", {
-    status: "error",
+  res.status(404).render('layout/error', {
+    status: 'error',
     code: 404,
-    message: "Pagina no encontrada",
+    message: 'Pagina no encontrada'
   });
 });
 
