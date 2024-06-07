@@ -347,8 +347,20 @@ const formViewAsset = async (req, res) => {
 };
 
 const searchAsset = async (req, res) => {
-  console.log('Hola soy searchListAssets');
-  const { inventory } = req.query;
+  const page = parseInt(req.query.page) || 1;
+  const limit = 10;
+  const offset = (page - 1) * limit;
+  const searchQuery = req.query.inventorySearch;
+
+  const assets = await Asset.find({ inventory: { $regex: searchQuery, $options: 'i' } })
+    .skip(offset)
+    .limit(limit);
+
+  const totalAssets = await Asset.countDocuments({ inventory: { $regex: searchQuery, $options: 'i' } });
+
+  const pages = Math.ceil(totalAssets / limit);
+
+  res.render('assets/search', { assets, page, pages, totalAssets, limit, offset });
 };
 
 export {
