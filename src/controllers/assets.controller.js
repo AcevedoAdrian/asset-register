@@ -347,20 +347,67 @@ const formViewAsset = async (req, res) => {
 };
 
 const searchAsset = async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
+  const page = req.query.page || 1;
+  const { inventory } = req.query;
+  const regularExpressionPaginate = /^[0-9]+$/; // Regular expression to validate that the page is a number greater than 0 and not a string or other type of data type that is not a number or integer
+
+  if (!regularExpressionPaginate.test(inventory)) {
+    return res.redirect('/assets/list?page=1');
+  }
+
   const limit = 10;
   const offset = (page - 1) * limit;
-  const searchQuery = req.query.inventorySearch;
 
-  const assets = await Asset.find({ inventory: { $regex: searchQuery, $options: 'i' } })
-    .skip(offset)
-    .limit(limit);
+  const [assets, totalAsset] = await Promise.all([
+    // Find all the assets that are not active
+    Asset.findAll({
+      limit,
+      offset,
+      where: {
+        [Op.and]: [
+          { active: true },
+          { inventory }
+        ]
+      },
+      include: [
+        { model: TypeAsset, attributes: ['name'] },
+        { model: Area, attributes: ['name'] },
+        { model: Building, attributes: ['name'] },
+        { model: Weighting },
+        { model: State, attributes: ['name'] },
+        { model: Situation, attributes: ['name'] }
+      ]
+    }),
 
-  const totalAssets = await Asset.countDocuments({ inventory: { $regex: searchQuery, $options: 'i' } });
+    Asset.count({
+      where: {
+        active: true
+      }
+    })
+  ]);
+  const pages = Math.ceil(totalAsset / limit);
 
-  const pages = Math.ceil(totalAssets / limit);
+  const [areas, buildings, situations, states, typeAssets, weightings] =
+    await Promise.all([
+      // Destructure the array of promises
+      Area.findAll(),
+      Building.findAll(),
+      Situation.findAll(),
+      State.findAll(),
+      TypeAsset.findAll(),
+      Weighting.findAll()
+    ]);
 
-  res.render('assets/search', { assets, page, pages, totalAssets, limit, offset });
+  res.render('assets/search',
+    {
+      assets,
+      search: req.query,
+      page,
+      pages,
+      totalAssets: assets.count,
+      limit,
+      offset
+    });
 };
 
 export {

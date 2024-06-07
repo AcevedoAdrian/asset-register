@@ -4,12 +4,8 @@ block container
   div(class="my-10")
     
     h2(class="text-center text-2xl font-extrabold ")= namePage
-    //- include ../search/assets
+    include ../search/assets
     
-    form(action="/assets/search" method="GET" class="flex justify-center items-center gap-2")
-      div(class="flex items-center gap-2")
-        label(for="search" class="text-sm font-medium text-gray-700") Buscar
-        input(type="text" name="inventory" id="inventory" class="border border-gray-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent shadow-sm")
 
     div(class="flex justify-end  border-gray-200 mt-5 mb-1 gap-2")
       a(href="/assets/create" class="hover:bg-green-400 group flex items-center rounded-md bg-green-500 text-white text-xs font-medium pl-2 pr-3 py-2 shadow-sm uppercase")
@@ -17,13 +13,6 @@ block container
           path(d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z")
         |Nuevo Bien
 
-      //- a(href="/assets/create" 
-          class="hover:bg-green-400 group flex items-center rounded-md bg-green-500 text-white text-xs font-medium pl-2 pr-3 py-2 shadow-sm uppercase ")
-        svg( width="20" height="20" fill="currentColor" class="mr-2" aria-hidden="true")
-          path(d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z")
-        |Nuevo AC
-  
-  
     if assets.length
       
       div(class="bg-wite shadow rounded-lg ")
