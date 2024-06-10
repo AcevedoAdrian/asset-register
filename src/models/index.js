@@ -16,7 +16,7 @@ Asset.belongsTo(Situation, { foreignKey: 'situationId' }, { defaultValue: 1 });
 Asset.belongsTo(State, { foreignKey: 'stateId' }, { defaultValue: 1 });
 Asset.belongsTo(Weighting, { foreignKey: 'weightingId' }, { defaultValue: 1 });
 
-User.belongsToMany(Role, { through: 'UserRoles' });
-Role.belongsToMany(User, { through: 'UserRoles' });
+User.belongsToMany(Role, { through: 'UserRoles', foreignKey: 'userId' });
+Role.belongsToMany(User, { through: 'UserRoles', foreignKey: 'roleId' });
 
 export { Area, Asset, Building, TypeAsset, User, Situation, State, Weighting };

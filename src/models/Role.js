@@ -1,21 +1,21 @@
-import { DataTypes } from "sequelize";
+import { DataTypes } from 'sequelize';
 
-import db from "../db/db.js";
+import db from '../db/db.js';
 
-const Role = db.define("Roles", {
+const Role = db.define('Roles', {
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
   description: {
     type: DataTypes.TEXT,
-    allowNull: true,
+    allowNull: true
   },
   active: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: true,
-  },
+    defaultValue: true
+  }
 });
 
 export default Role;
