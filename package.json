@@ -11,7 +11,8 @@
     "css": "postcss src/public/css/tailwind.css -o src/public/css/app.css --watch",
     "db:imported": "node --env-file=.env ./src/seeders/seeder.js -i ",
     "db:importedAsset": "node --env-file=.env ./src/seeders/seeder.js -a ",
-    "db:deleted": "node --env-file=.env ./src/seeders/seeder.js -d "
+    "db:deleted": "node --env-file=.env ./src/seeders/seeder.js -d ",
+    "build": " "
   },
   "author": "Acevedo Adrian",
   "license": "ISC",

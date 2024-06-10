@@ -23,6 +23,8 @@ import db from "../db/db.js";
 import Role from "../models/Role.js";
 import roles from "./roles.js";
 
+
+
 const importData = async () => {
   try {
     await db.authenticate();
@@ -38,6 +40,7 @@ const importData = async () => {
       Weighting.bulkCreate(weighting),
       Role.bulkCreate(roles),
     ]);
+
     exit();
   } catch (error) {
     console.error(error);
@@ -57,6 +60,11 @@ const importAsset = async () => {
     exit(1); // Force exit with error
   }
 };
+const asignRole = async () => {
+
+
+
+}
 
 const deleteData = async () => {
   try {
